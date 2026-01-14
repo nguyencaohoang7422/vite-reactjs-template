@@ -1,5 +1,5 @@
 // Export only what other features should use
-export * from './pages';
+export * from './pages/page';
 export * from './store';
 
 

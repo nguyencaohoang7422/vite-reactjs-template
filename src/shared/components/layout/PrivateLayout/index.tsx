@@ -1,6 +1,6 @@
-import HeaderLayout from "./HeaderLayout"
-import MainLayout from "./MainLayout"
-import SidebarLayout from "./SidebarLayout"
+import HeaderLayout from "./HeaderLayout/HeaderLayout"
+import MainLayout from "./MainLayout/MainLayout"
+import SidebarLayout from "./SidebarLayout/SidebarLayout"
 
 const PrivateLayout = () => {
   return (

@@ -4,10 +4,11 @@ import { PublicRoute } from './PublicRoute';
 import { RoleBasedRoute } from './RoleBasedRoute';
 
 // Layouts
-import { AuthLayout } from '@/shared/components/layout/AuthLayout';
+import { AuthLayout } from '@/shared/components/layout/AuthLayout/AuthLayout';
 
 // Public Pages
-import { LoginPage } from '@/features/auth/pages';
+import { LoginPage } from '@/features/auth/pages/page';
+import Dashboard from '@/features/dashboard/pages/page';
 import PrivateLayout from '@/shared/components/layout/PrivateLayout';
 import PageForbidden from '@/shared/pages/forbidden';
 import PageNotFound from '@/shared/pages/not-found';
@@ -51,10 +52,7 @@ export const routes: RouteObject[] = [
     children: [
       {
        path: '/',
-       element: <div>
-
-        Home
-       </div>,
+       element: <Dashboard/>,
      },
       // {
       //   path: '/dashboard',

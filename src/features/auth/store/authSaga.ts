@@ -30,8 +30,7 @@ export function* checkAuthSaga(): SagaIterator{
     }
    throw new Error('Phiên đăng nhập hết hạn');
   } catch (error : any) {
-    console.error(error);
-    error?.message  && toast.error(error?.message);
+    console.error(error)
     router.navigate('/login')
   }
 }

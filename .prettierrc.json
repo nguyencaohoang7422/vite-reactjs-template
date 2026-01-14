@@ -1,15 +1,15 @@
 {
-  "printWidth": 80,
+  "printWidth": 120,
   "tabWidth": 2,
   "useTabs": false,
   "semi": true,
-  "singleQuote": false,
-  "trailingComma": "es5",
+  "singleQuote": true,
+  "trailingComma": "all",
   "bracketSpacing": true,
   "arrowParens": "always",
   "endOfLine": "auto",
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindStylesheet": "/src/styles/index.css",
-  "tailwindFunctions": ["clsx"]
-
+  "tailwindFunctions": ["clsx"],
+  "jsxBracketSameLine": true
 }

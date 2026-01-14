@@ -1,6 +1,6 @@
-import { cn } from "@/shared/lib/utils"
+import { cn } from "@/shared/libs"
 
-function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+export function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="skeleton"
@@ -10,4 +10,3 @@ function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-export { Skeleton }
