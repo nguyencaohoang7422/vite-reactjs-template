@@ -1,7 +1,9 @@
 import { logout } from '@/features/auth/store/authSlice';
 import { Button } from '@/shared/components/ui/button';
+import { cn } from '@/shared/libs';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import SidebarHeader from './SidebarHeader';
 
 const SidebarLayout = () => {
     const dispatch = useDispatch();
@@ -9,15 +11,9 @@ const SidebarLayout = () => {
         dispatch(logout());
       };
   return (
-   <aside id="sidebar-layout" className="w-64 bg-gray-800 text-white p-4">
-        <div className="mb-8">
-          <h2 className="text-xl font-bold">My App</h2>
-          <p className="text-sm text-gray-400">Welcome,</p>
-        </div>
-        
+   <aside id="sidebar-layout" className={cn('w-70 bg-[#F8F9FA] text-[#171A1F] p-4')} >
+        <SidebarHeader/>
         <nav className="space-y-2">
-       
-
           <Link
             to="/dashboard" 
             className="block px-4 py-2 rounded hover:bg-gray-700"

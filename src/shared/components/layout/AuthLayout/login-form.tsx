@@ -10,7 +10,7 @@ import {
   FieldSeparator,
 } from "@/shared/components/ui/field"
 import { Input } from "@/shared/components/ui/input"
-import { cn } from "@/shared/lib/utils"
+import { cn } from "@/shared/libs/utils"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from "react-redux"
@@ -115,7 +115,7 @@ export function LoginForm({
           </form>
           <div className="bg-muted relative hidden md:block">
             <img
-              src="/vite.svg"
+              src="/favicon.png"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />

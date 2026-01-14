@@ -5,18 +5,17 @@ import { RoleBasedRoute } from './RoleBasedRoute';
 
 // Layouts
 import { AuthLayout } from '@/shared/components/layout/AuthLayout';
-import { DashboardLayout } from '@/shared/components/layout/DashboardLayout';
 
 // Public Pages
 import { LoginPage } from '@/features/auth/pages';
 import PrivateLayout from '@/shared/components/layout/PrivateLayout';
+import PageForbidden from '@/shared/pages/forbidden';
 import PageNotFound from '@/shared/pages/not-found';
 
 // Protected Pages
 
 
 export const routes: RouteObject[] = [
-  // Public routes với MainLayout
 
 
   // Auth routes (restricted for logged in users)
@@ -35,10 +34,10 @@ export const routes: RouteObject[] = [
       //   path: '/register',
       //   element: <RegisterPage />,
       // },
-      {
-        path: '/forgot-password',
-        element: <div>Forgot Password Page</div>,
-      },
+      // {
+      //   path: '/forgot-password',
+      //   element: <div>Forgot Password Page</div>,
+      // },
     ],
   },
 
@@ -57,11 +56,6 @@ export const routes: RouteObject[] = [
         Home
        </div>,
      },
-     // 404 Page
-      {
-        path: '*',
-        element: <PageNotFound />,
-      },
       // {
       //   path: '/dashboard',
       //   element: <DashboardPage />,
@@ -100,7 +94,7 @@ export const routes: RouteObject[] = [
   {
     element: (
       <RoleBasedRoute allowedRoles={['admin', 'superadmin']}>
-        <DashboardLayout />
+        {/* <DashboardLayout /> */}
       </RoleBasedRoute>
     ),
     children: [
@@ -115,5 +109,15 @@ export const routes: RouteObject[] = [
     ],
   },
 
-  
+  // Forbidden route - khi không có quyền truy cập
+  {
+    path: '/forbidden',
+    element: <PageForbidden />,
+  },
+
+  // 404 route - phải ở cuối cùng để catch tất cả các path không match
+  {
+    path: '*',
+    element: <PageNotFound />,
+  },
 ];

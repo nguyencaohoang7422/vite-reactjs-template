@@ -1,4 +1,4 @@
-import type { RootState } from '@/libs';
+import type { RootState } from '@/configs';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ interface RoleBasedRouteProps {
 export const RoleBasedRoute = ({ 
   allowedRoles, 
   children,
-  redirectPath = '/unauthorized'
+  redirectPath = '/forbidden'
 }: RoleBasedRouteProps) => {
   const { user, isLoading } = useSelector((state: RootState) => state.auth);
 

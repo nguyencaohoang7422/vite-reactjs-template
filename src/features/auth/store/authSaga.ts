@@ -1,12 +1,13 @@
-import { navigate } from '@/app/store/appSlice';
+import { router } from '@/app/router';
 import { cookieName } from '@/shared';
-import { getValue, setValue } from '@/shared/lib/cookie';
+import { getValue, removeValue, setValue } from '@/shared/libs/cookie';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { redirect } from 'react-router-dom';
 import { type SagaIterator } from 'redux-saga';
-import { call, put, putResolve, takeLatest, takeLeading } from 'redux-saga/effects';
+import { all, call, put, putResolve, takeLatest, takeLeading } from 'redux-saga/effects';
 import { toast } from 'sonner';
 import { loginApi, loginWithToken, logoutApi } from '../api/authApi';
-import { checkAuth, loginFailure, loginRequest, loginSuccess, logout } from './authSlice';
+import { checkAuth, clearAuth, loginFailure, loginRequest, loginSuccess, logout } from './authSlice';
  function getDeviceId(){
   const deviceId = localStorage.getItem('deviceId');
   if(!deviceId){
@@ -16,9 +17,9 @@ import { checkAuth, loginFailure, loginRequest, loginSuccess, logout } from './a
   }
   return deviceId;
 }
- function* checkAuthSaga(): SagaIterator{
+export function* checkAuthSaga(): SagaIterator{
   try {
-    const token = getValue('vCloudWeb');
+    const token = getValue(cookieName);
     if(token){
       const response = yield call(loginWithToken, {token});
       if(response.success){
@@ -31,7 +32,7 @@ import { checkAuth, loginFailure, loginRequest, loginSuccess, logout } from './a
   } catch (error : any) {
     console.error(error);
     error?.message  && toast.error(error?.message);
-    yield put(navigate('/login'));
+    router.navigate('/login')
   }
 }
 export function* loginSaga(action: PayloadAction<{ username: string; password: string, }>):any {
@@ -42,34 +43,37 @@ export function* loginSaga(action: PayloadAction<{ username: string; password: s
     if(response.success){
       yield putResolve(loginSuccess({token: response.result.token , user: response.result,rememberMe: true }));
       setValue(cookieName,response.result.token);
-      yield put(navigate('/'))
+     router.navigate('/');
       toast.success('Đăng nhập thành công');
     }else{
       toast.error(response.message);
     }
   } catch (error: any) {
+    console.log("🚀 ~ loginSaga ~ error:", error)
     yield put(loginFailure(error.message));
-    error?.message  && toast.error(error?.message);
+    error?.message && toast.error(error?.message);
   }
 }
 export function* logoutSaga():any {
   try {
     const response = yield call(logoutApi);
     if(response.success){
-      yield put(navigate('/login'))
+      yield putResolve(clearAuth());
+      removeValue(cookieName); 
+      redirect('/login');
       toast.success('Đăng xuất thành công');
     }else{
-      toast.error(response?.message)
+      throw new Error('Phiên đăng nhập hết hạn')
     }
   } catch (error: any) {
-    yield put(loginFailure(error.message));
     error?.message  && toast.error(error?.message);
-
   }
 }
 
-export default function* authSaga() {
-   yield takeLatest(checkAuth.type, checkAuthSaga);
-   yield takeLeading(loginRequest.type, loginSaga);
-   yield takeLeading(logout.type, logoutSaga);
+export default function* authSaga() :SagaIterator {
+  yield all([
+    takeLatest(checkAuth.type, checkAuthSaga),
+    takeLeading(loginRequest.type, loginSaga),
+    takeLeading(logout.type, logoutSaga),
+  ]);
 }

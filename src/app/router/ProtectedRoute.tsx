@@ -1,4 +1,4 @@
-import type { RootState } from '@/libs';
+import type { RootState } from '@/configs';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 

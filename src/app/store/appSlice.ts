@@ -1,24 +1,23 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { ThemeState } from "./appType";
 
+type AppState = {
+  theme : ThemeState
+}
 
-const initialState : {
-  path: string | null;
-} = {
-    path : null
+const initialState : AppState= {
+  theme: 'default',
 };
 
 const authSlice = createSlice({
 name: 'app',
   initialState,
   reducers: {
-    navigate: (state, action : PayloadAction<string> )=>{
-        state.path = action.payload
-    },
-    clearPath: (state) =>{
-      state.path = null;
+    setTheme: (state, action: PayloadAction<ThemeState>) =>{
+        state.theme = action.payload;
     }
   },
 });
 
-export const { navigate, clearPath } = authSlice.actions;
+export const { setTheme } = authSlice.actions;
 export default authSlice.reducer;

@@ -1201,6 +1201,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.17.23
+  resolution: "@types/lodash@npm:4.17.23"
+  checksum: 10c0/9d9cbfb684e064a2b78aab9e220d398c9c2a7d36bc51a07b184ff382fa043a99b3d00c16c7f109b4eb8614118f4869678dbae7d5c6700ed16fb9340e26cc0bf6
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^25.0.7":
   version: 25.0.7
   resolution: "@types/node@npm:25.0.7"
@@ -1830,6 +1837,13 @@ __metadata:
     es-errors: "npm:^1.3.0"
     is-data-view: "npm:^1.0.1"
   checksum: 10c0/fa7aa40078025b7810dcffc16df02c480573b7b53ef1205aa6a61533011005c1890e5ba17018c692ce7c900212b547262d33279fde801ad9843edc0863bf78c4
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.19":
+  version: 1.11.19
+  resolution: "dayjs@npm:1.11.19"
+  checksum: 10c0/7d8a6074a343f821f81ea284d700bd34ea6c7abbe8d93bce7aba818948957c1b7f56131702e5e890a5622cdfc05dcebe8aed0b8313bdc6838a594d7846b0b000
   languageName: node
   linkType: hard
 
@@ -2664,6 +2678,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html-parse-stringify@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "html-parse-stringify@npm:3.0.1"
+  dependencies:
+    void-elements: "npm:3.1.0"
+  checksum: 10c0/159292753d48b84d216d61121054ae5a33466b3db5b446e2ffc093ac077a411a99ce6cbe0d18e55b87cf25fa3c5a86c4d8b130b9719ec9b66623259000c72c15
+  languageName: node
+  linkType: hard
+
 "http-cache-semantics@npm:^4.1.1":
   version: 4.2.0
   resolution: "http-cache-semantics@npm:4.2.0"
@@ -2688,6 +2711,20 @@ __metadata:
     agent-base: "npm:^7.1.2"
     debug: "npm:4"
   checksum: 10c0/f729219bc735edb621fa30e6e84e60ee5d00802b8247aac0d7b79b0bd6d4b3294737a337b93b86a0bd9e68099d031858a39260c976dc14cdbba238ba1f8779ac
+  languageName: node
+  linkType: hard
+
+"i18next@npm:^25.7.4":
+  version: 25.7.4
+  resolution: "i18next@npm:25.7.4"
+  dependencies:
+    "@babel/runtime": "npm:^7.28.4"
+  peerDependencies:
+    typescript: ^5
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/d30e4f9a1c31adc0570c9f4a22ab226257620f2465e2275f8cdd5ef7f52668716cc9be3b741031aeacb39e2196be5a5f656e12d89787b4248098f681e99f72ea
   languageName: node
   linkType: hard
 
@@ -3254,6 +3291,13 @@ __metadata:
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: 10c0/402fa16a1edd7538de5b5903a90228aa48eb5533986ba7fa26606a49db2572bf414ff73a2c9f5d5fd36b31c46a5d5c7e1527749c07cbcf965ccff5fbdf32c506
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
   languageName: node
   linkType: hard
 
@@ -3867,6 +3911,28 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
   checksum: 10c0/009c9c86b9ddb4f68964a121693fedcf61d656bc30052b217d4c87002ee26d6c5540cabd193abca4eb290775fdcd3c0a06b3b96fd54d9fead0c0d268a1760a5e
+  languageName: node
+  linkType: hard
+
+"react-i18next@npm:^16.5.3":
+  version: 16.5.3
+  resolution: "react-i18next@npm:16.5.3"
+  dependencies:
+    "@babel/runtime": "npm:^7.28.4"
+    html-parse-stringify: "npm:^3.0.1"
+    use-sync-external-store: "npm:^1.6.0"
+  peerDependencies:
+    i18next: ">= 25.6.2"
+    react: ">= 16.8.0"
+    typescript: ^5
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+    typescript:
+      optional: true
+  checksum: 10c0/8c54fa935b892f01022beca6f402580890429f95ebf1df4d8003e328403eb1ba8855682edc0fc730d34f134e6b93feee580773fae22c8d287caa2dce3e13b427
   languageName: node
   linkType: hard
 
@@ -4780,7 +4846,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.4.0":
+"use-sync-external-store@npm:^1.4.0, use-sync-external-store@npm:^1.6.0":
   version: 1.6.0
   resolution: "use-sync-external-store@npm:1.6.0"
   peerDependencies:
@@ -4803,6 +4869,7 @@ __metadata:
     "@tailwindcss/vite": "npm:^4.1.18"
     "@types/crypto-js": "npm:^4"
     "@types/js-cookie": "npm:^3"
+    "@types/lodash": "npm:^4"
     "@types/node": "npm:^25.0.7"
     "@types/react": "npm:^19.2.5"
     "@types/react-dom": "npm:^19.2.3"
@@ -4814,6 +4881,7 @@ __metadata:
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
     crypto-js: "npm:^4.2.0"
+    dayjs: "npm:^1.11.19"
     eslint: "npm:^9.39.2"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-prettier: "npm:^5.5.4"
@@ -4821,7 +4889,9 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^7.0.1"
     eslint-plugin-react-refresh: "npm:^0.4.26"
     globals: "npm:^16.5.0"
+    i18next: "npm:^25.7.4"
     js-cookie: "npm:^3.0.5"
+    lodash: "npm:^4.17.21"
     lucide-react: "npm:^0.562.0"
     next-themes: "npm:^0.4.6"
     prettier: "npm:^3.7.4"
@@ -4829,6 +4899,7 @@ __metadata:
     react: "npm:^19.2.0"
     react-dom: "npm:^19.2.0"
     react-hook-form: "npm:^7.70.0"
+    react-i18next: "npm:^16.5.3"
     react-redux: "npm:^9.2.0"
     react-router-dom: "npm:^7.12.0"
     redux: "npm:^5.0.1"
@@ -4900,6 +4971,13 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 10c0/02b370d57fdf03ff7474e2e3b804c9fe6e6d1113aaae93f511349822ac5fb61b426c1e4bcd2fbc3ab880dc55a9795f2fa41f88b18a4c9e8fb400ed24732e518d
+  languageName: node
+  linkType: hard
+
+"void-elements@npm:3.1.0":
+  version: 3.1.0
+  resolution: "void-elements@npm:3.1.0"
+  checksum: 10c0/0b8686f9f9aa44012e9bd5eabf287ae0cde409b9a2854c5a2335cb83920c957668ac5876e3f0d158dd424744ac411a7270e64128556b451ed3bec875ef18534d
   languageName: node
   linkType: hard
 

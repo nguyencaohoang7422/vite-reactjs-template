@@ -2,9 +2,9 @@ import { applyMiddleware } from 'redux';
 import { createStore as createDynamicStore, type IModuleStore } from 'redux-dynamic-modules';
 import { createLogger } from 'redux-logger';
 // Import initial reducers
-import { getAuthModule } from '@/features/auth/store/authModule';
-import { getSagaExtension } from 'redux-dynamic-modules-saga';
 import { getAppModule } from '@/app/store';
+import { getAuthModule } from '@/features/auth';
+import { getSagaExtension } from 'redux-dynamic-modules-saga';
 
 
 // Cấu hình logger (chỉ trong development)
@@ -48,7 +48,7 @@ const logger = createLogger({
     ...action,
     type: String(action.type),
   }),
-
+  
   // Transform state trước khi log
   stateTransformer: (state) => state,
 
@@ -66,10 +66,8 @@ export const store: IModuleStore<any> = createDynamicStore(
       getSagaExtension({
         context: sagaContext, // Saga context để share data giữa sagas
       }),
-
     ],
-    
-    enhancers: import.meta.env.MODE === 'development' 
+    enhancers: import.meta.env.DEV
       ? [applyMiddleware(logger)]
       : [],
   },

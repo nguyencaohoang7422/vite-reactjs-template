@@ -1,5 +1,5 @@
+import { store } from '@/configs';
 import { logout } from '@/features/auth/store/authSlice';
-import { store } from '@/libs';
 import axios from 'axios';
 export const appToken = 'vCloudWeb'
 

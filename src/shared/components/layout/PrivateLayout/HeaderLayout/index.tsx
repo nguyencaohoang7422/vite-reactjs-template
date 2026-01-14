@@ -1,8 +1,11 @@
-import { cn } from "@/libs/utils";
+import { cn } from "@/shared/libs";
 
-const HeaderLayout = () => {
+type HeaderProps = {
+  className?:string
+}
+const HeaderLayout = ({className}:HeaderProps) => {
   return (
-    <header id="header-layout" className={cn('h-16 bg-white rounded-4xl shadow-[0px_4px_9px_0px_#171A1F1C,0px_0px_2px_0px_#171A1F1F]')}>
+    <header id="header-layout" className={cn('h-16 bg-white rounded-xl shadow-[0px_4px_9px_0px_#171A1F1C,0px_0px_2px_0px_#171A1F1F]',className)}>
     </header>
   )
 }

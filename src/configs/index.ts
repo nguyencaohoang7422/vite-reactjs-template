@@ -1,3 +1,3 @@
+export * from './i18n';
 export * from './store-config';
-export * from './utils';
 

@@ -11,9 +11,6 @@
     --color-brand-primary  : rgb(var(--color-primary-rgb) / <alpha-value>);
     --color-brand-secondary: rgb(var(--color-secondary-rgb) / <alpha-value>);
 
-
-
-
     /* Colors - Định nghĩa bảng màu của design */
     --color-primary-50 : #f0f9ff;
     --color-primary-100: #e0f2fe;
@@ -208,6 +205,8 @@
 }
 
 @theme {
+    --radius       : 4px;
+    --spacing      : 0.4rem;
     --text-sm      : 1rem;
     --font-xs      : 1rem;
     --font-size-sm : 1.2rem;
