@@ -7,6 +7,7 @@ const initialState: AuthState = {
   isLoading: false,
   error: null,
 };
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -31,7 +32,7 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoading = false;
       state.error = null;
-    }
+    },
   },
 });
 

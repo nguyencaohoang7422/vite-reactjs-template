@@ -53,7 +53,7 @@ export interface User  {
     "mustChangePassword": false;
     "lastLoginOn": number;
     "tokenConfiguration": string | null;
-    uiSettings :Settings;
+    "uiSettings" : Settings;
     "passwordExpirationDateTime": number;
     "token": string,
     "partnerCompanyName": string;

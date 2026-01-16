@@ -58,7 +58,7 @@ export function* logoutSaga():any {
     const response = yield call(logoutApi);
     if(response.success){
       yield putResolve(clearAuth());
-      removeValue(cookieName); 
+      removeValue(cookieName);
       redirect('/login');
       toast.success('Đăng xuất thành công');
     }else{

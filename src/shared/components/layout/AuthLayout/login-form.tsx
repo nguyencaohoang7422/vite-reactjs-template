@@ -35,8 +35,7 @@ export function LoginForm({
     },
   });
   const onsubmit = (data: LoginFormData) =>{
-        dispatch(loginRequest(data));
-
+    dispatch(loginRequest(data));
   };
 
   return (

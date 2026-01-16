@@ -2,6 +2,7 @@ import { store } from '@/configs';
 import { logout } from '@/features/auth/store/authSlice';
 import axios from 'axios';
 import { cookieName } from '../constants';
+import { getValue } from '../libs';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -13,7 +14,7 @@ const axiosInstance = axios.create({
 // Request interceptor
 axiosInstance.interceptors.request.use(
   async (config) => {
-    const tokenFromCookie = await cookieStore.get(cookieName);
+    const tokenFromCookie = getValue(cookieName);
     const token = store.getState().auth.token || tokenFromCookie;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
