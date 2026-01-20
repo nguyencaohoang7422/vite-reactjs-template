@@ -1,4 +1,5 @@
 import { logout } from '@/features/auth/store/authSlice';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/components/ui';
 import { Button } from '@/shared/components/ui/button';
 import { cn } from '@/shared/libs';
 import { useDispatch } from 'react-redux';
@@ -14,12 +15,22 @@ const SidebarLayout = () => {
    <aside id="sidebar-layout" className={cn('w-70 bg-[#F8F9FA] text-[#171A1F] p-4')} >
         <SidebarHeader/>
         <nav className="space-y-2">
-          <Link
+          <Tooltip>
+  <TooltipTrigger>
+     <Link
             to="/dashboard" 
-            className="block px-4 py-2 rounded hover:bg-gray-700"
+            className="block px-4 py-2 rounded "
           >
             Dashboard
           </Link>
+
+  </TooltipTrigger>
+  <TooltipContent >
+    <p>Dashboard</p>
+  </TooltipContent>
+</Tooltip>
+        
+          
           <Link 
             to="/products" 
             className="block px-4 py-2 rounded hover:bg-gray-700"

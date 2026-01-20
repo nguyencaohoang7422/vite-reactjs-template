@@ -5,7 +5,7 @@ import {
   FieldLabel
 } from "@/shared/components/ui/field";
 import { Input } from "@/shared/components/ui/input";
-import { Eye, EyeOff, } from 'lucide-react';
+import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react';
 import { useId, useState } from "react";
 type PasswordInputFieldProps = {
   label?: string,
@@ -31,7 +31,7 @@ const PasswordInputField = ({
                 <div className="relative">
                   <Input id={_id} autoComplete="current-password" type={inputType} placeholder="Enter your password" required {...register}/>
                   <Button type="button" size={'icon-sm'} className="absolute top-0 right-0"  onClick={()=>setInputType(inputType ==='password' ? 'text' : 'password')}>
-                    {inputType ==='password' ? <Eye /> : <EyeOff />}
+                    {inputType ==='password' ? <EyeIcon /> : <EyeSlashIcon />}
                   </Button>
                 </div>
                   <a

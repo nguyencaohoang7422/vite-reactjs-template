@@ -1,13 +1,11 @@
 import HeaderLayout from "./HeaderLayout/HeaderLayout"
 import MainLayout from "./MainLayout/MainLayout"
-import SidebarLayout from "./SidebarLayout/SidebarLayout"
 
 const PrivateLayout = () => {
   return (
-    <div className="min-h-screen flex bg-[#FAFAFB] flex-1">
-      <SidebarLayout/>
+    <div className="min-h-screen bg-[#FAFAFB]">
+      <HeaderLayout/>
       <div className="flex flex-col flex-1 p-3 pb-0 gap-3">
-        <HeaderLayout/>
         <MainLayout/>
       </div>
 

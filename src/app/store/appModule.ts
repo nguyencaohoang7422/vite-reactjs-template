@@ -1,4 +1,4 @@
-import { type ISagaModule } from 'redux-dynamic-modules-saga';
+import type { IModule } from '@/configs/reducerManager';
 import appSaga from './appSaga';
 import appReducer from './appSlice';
 
@@ -8,7 +8,7 @@ export interface IAppState {
 }
 
 // Module factory function
-export function getAppModule(): ISagaModule<IAppState> {
+export function getAppModule(): IModule<IAppState> {
   return {
     // Module ID - unique identifier
     id: 'app',
@@ -28,6 +28,5 @@ export function getAppModule(): ISagaModule<IAppState> {
     // finalActions: [],
     
     // Optional: retain module khi unmount (default: false)
-    retained: true,
   };
 }

@@ -1,6 +1,6 @@
 import { cn } from "@/shared/libs"
+import { ArrowArcRightIcon, CheckIcon, CircleIcon } from "@phosphor-icons/react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
-import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
 import * as React from "react"
 function DropdownMenu({
   ...props
@@ -200,7 +200,7 @@ function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon className="ml-auto size-4" />
+      <ArrowArcRightIcon className="ml-auto size-4" />
     </DropdownMenuPrimitive.SubTrigger>
   )
 }
@@ -220,11 +220,11 @@ function DropdownMenuSubContent({
   )
 }
 export {
-    DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent,
-    DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger
+  DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent,
+  DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger
 }
 

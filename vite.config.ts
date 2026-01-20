@@ -13,4 +13,7 @@ export default defineConfig({
       '@/app': path.resolve(__dirname, './src/app'),
     },
   },
+  optimizeDeps:{
+      entries:['@phosphor-icon/react']    
+  },
 })

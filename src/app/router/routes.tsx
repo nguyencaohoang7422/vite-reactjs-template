@@ -10,6 +10,7 @@ import { AuthLayout } from '@/shared/components/layout/AuthLayout/AuthLayout';
 import { LoginPage } from '@/features/auth/pages/page';
 import Dashboard from '@/features/dashboard/pages/page';
 import PrivateLayout from '@/shared/components/layout/PrivateLayout';
+import ErrorPage from '@/shared/pages/error-page';
 import PageForbidden from '@/shared/pages/forbidden';
 import PageNotFound from '@/shared/pages/not-found';
 
@@ -26,6 +27,7 @@ export const routes: RouteObject[] = [
         <AuthLayout />
       </PublicRoute>
     ),
+     errorElement: <ErrorPage />,
     children: [
       {
         path: '/login',
@@ -49,6 +51,7 @@ export const routes: RouteObject[] = [
         <PrivateLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
        path: '/',
@@ -95,6 +98,7 @@ export const routes: RouteObject[] = [
         {/* <DashboardLayout /> */}
       </RoleBasedRoute>
     ),
+     errorElement: <ErrorPage />,
     children: [
       // {
       //   path: '/admin',
@@ -116,6 +120,8 @@ export const routes: RouteObject[] = [
   // 404 route - phải ở cuối cùng để catch tất cả các path không match
   {
     path: '*',
+    errorElement:<ErrorPage/>,
+
     element: <PageNotFound />,
   },
 ];

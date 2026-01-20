@@ -1,4 +1,19 @@
-export const menuData = [
+export type ItemMenu = {
+    id: string,
+    position: number,
+    name: string,
+    link: string,
+    hidden?: boolean,
+    menuItemList?: ItemMenu[],
+    groupLink?: string,
+    key?: string,
+    icon?: string
+    groupId?: string,
+    groupName?: string,
+    groupIcon?: string,
+    groupKey?:string,
+}
+export const menuData: ItemMenu[] = [
   {
     id: 'login',
     position: 1,
@@ -16,7 +31,8 @@ export const menuData = [
     position: 3,
     name: 'Home',
     link: '/home',
-    menuItemList: [
+    menuItemList: 
+    [
       {
         icon: 'user-list',
         groupLink: '/managers',
