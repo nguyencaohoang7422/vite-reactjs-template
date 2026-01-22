@@ -1,2 +1,1 @@
-export * from './loading-full';
-
+export * from './loading-full.tsx';

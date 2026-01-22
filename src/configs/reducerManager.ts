@@ -1,10 +1,10 @@
 // store/reducerManager.ts
-import { combineReducers, type Action, type Reducer } from '@reduxjs/toolkit';
+import { type Action, combineReducers, type Reducer } from '@reduxjs/toolkit';
 
 export interface IModule<TState = any> {
   id: string;
   reducerMap: {
-    [key: string]: Reducer<any, Action>;
+    [key: string]: Reducer<TState, Action>;
   };
   sagas?: any[];
   initialActions?: Action[];
@@ -19,7 +19,7 @@ export function createReducerManager(initialReducers: { [key: string]: Reducer }
 
   return {
     getReducerMap: () => reducers,
-    
+
     reduce: (state: any, action: Action) => {
       if (keysToRemove.length > 0) {
         state = { ...state };

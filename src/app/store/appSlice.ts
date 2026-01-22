@@ -1,21 +1,21 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { ThemeState } from "./appType";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { ThemeState } from './appType';
 
-type AppState = {
-  theme : ThemeState
-}
+export type AppState = {
+  theme: ThemeState;
+};
 
-const initialState : AppState= {
+const initialState: AppState = {
   theme: 'default',
 };
 
 const authSlice = createSlice({
-name: 'app',
+  name: 'app',
   initialState,
   reducers: {
-    setTheme: (state, action: PayloadAction<ThemeState>) =>{
-        state.theme = action.payload;
-    }
+    setTheme: (state, action: PayloadAction<ThemeState>) => {
+      state.theme = action.payload;
+    },
   },
 });
 

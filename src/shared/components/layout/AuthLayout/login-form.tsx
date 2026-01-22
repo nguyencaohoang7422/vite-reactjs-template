@@ -1,30 +1,22 @@
-import { loginSchema, type LoginFormData } from "@/features/auth/schemas/loginSchema"
-import { loginRequest } from "@/features/auth/store/authSlice"
-import { Button } from "@/shared/components/ui/button"
-import { Card, CardContent } from "@/shared/components/ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-} from "@/shared/components/ui/field"
-import { Input } from "@/shared/components/ui/input"
-import { cn } from "@/shared/libs/utils"
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
-import { useDispatch } from "react-redux"
-import PasswordInputField from "../../form/PasswordInputField"
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+import { type LoginFormData, loginSchema } from '@/auth/schemas/loginSchema.ts';
+import { loginRequest } from '@/auth/stores/authSlice';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSeparator } from '@/shared/components/ui/field';
+import { Input } from '@/shared/components/ui/input';
+import { cn } from '@/shared/libs/utils';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import PasswordInputField from '../../form/PasswordInputField';
+import type { ComponentProps } from 'react';
+
+export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
   const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
     mode: 'onBlur',
@@ -34,21 +26,19 @@ export function LoginForm({
       rememberMe: true,
     },
   });
-  const onsubmit = (data: LoginFormData) =>{
+  const onsubmit = (data: LoginFormData) => {
     dispatch(loginRequest(data));
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={handleSubmit(onsubmit)}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-muted-foreground text-balance">
-                  Login to your Vcloud account
-                </p>
+                <p className="text-balance text-muted-foreground">Login to your Vcloud account</p>
               </div>
               <Field>
                 <FieldLabel htmlFor="username">Tài khoản</FieldLabel>
@@ -61,18 +51,30 @@ export function LoginForm({
                   className="text-[1.3rem]"
                   {...register('username')}
                 />
-                {errors.username?.message && <span>{errors.username?.message}</span> }
+                {errors.username?.message && <span>{errors.username?.message}</span>}
               </Field>
-              <PasswordInputField
-                register={register('password')}
-                error={errors.password?.message}
-              />
+              <PasswordInputField register={register('password')} error={errors.password?.message} />
 
               <Field>
                 <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ?
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-loader-circle-icon lucide-loader-circle"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-                  : 'Login'}
+                  {isSubmitting ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-loader-circle-icon lucide-loader-circle"
+                    >
+                      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                    </svg>
+                  ) : (
+                    'Login'
+                  )}
                 </Button>
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
@@ -112,19 +114,18 @@ export function LoginForm({
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="bg-muted relative hidden md:block">
+          <div className="relative hidden bg-muted md:block">
             <img
               src="/favicon.png"
-              alt="Image"
+              alt="Login"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
       </FieldDescription>
     </div>
-  )
+  );
 }

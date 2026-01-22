@@ -1,3 +1,19 @@
 {
-  "global": {}
+  "global": {},
+  "home": {
+    "managers": "Quản lý tài khoản",
+    "cameraGroup": "Nhóm camera",
+    "camera": "Camera",
+    "liveView": "Xem trực tiếp",
+    "playback": "Phát lại",
+    "aiLiveView": "Xem trực tiếp AI",
+    "aiPlayback": "Phát lại AI",
+    "aiSettings": "Cài đặt AI",
+    "traffic": "Giao thông",
+    "deviceManagement": "Quản lý thiết bị",
+    "mimiMap": "Bản vẽ bố trí",
+    "account": "Tài khoản",
+    "aiSearch": "Tìm kiếm AI",
+    "aiWarning": "Cảnh báo AI"
+  }
 }

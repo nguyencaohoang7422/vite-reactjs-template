@@ -1,23 +1,17 @@
-import { selectUser } from '@/features/auth';
+import { selectAuthState } from '@/auth';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
+import type { ReactNode } from 'react';
 
 interface PublicRouteProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   restricted?: boolean; // true = không cho user đã login truy cập
 }
 
-export const PublicRoute = ({ 
-  children, 
-  restricted = false 
-}: PublicRouteProps) => {
-  const user  = useSelector(selectUser);
-
-  // Nếu đã login và route bị restricted (như login page)
-  // thì redirect về dashboard
+export const PublicRoute = ({ children, restricted = false }: PublicRouteProps) => {
+  const user = useSelector(selectAuthState('user'));
   if (user && restricted) {
     return <Navigate to="/" />;
   }
-
   return children ? <>{children}</> : <Outlet />;
 };

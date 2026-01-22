@@ -1,6 +1,6 @@
 // store/store.ts
 import { getAppModule } from '@/app/store';
-import { getAuthModule } from '@/features/auth';
+import { getAuthModule } from '@/auth';
 import { configureStore, Tuple } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
@@ -10,9 +10,10 @@ import { createSagaManager } from './sagaManager';
 // Cấu hình logger (chỉ trong development)
 const logger = createLogger({
   collapsed: (_getState, _action, logEntry: any) => !logEntry.error,
-  
-  predicate: (_getState, action) => {// 
-    if (!import.meta.env.DEV) return false; 
+
+  predicate: (_getState, action) => {
+    //
+    if (!import.meta.env.DEV) return false;
     const ignoredActions = ['@@INIT'];
     return !ignoredActions.includes(action.type);
   },
@@ -21,7 +22,7 @@ const logger = createLogger({
   duration: true,
   timestamp: true,
   level: 'log',
-  
+
   colors: {
     title: () => '#139BFE',
     prevState: () => '#1C5FAF',
@@ -34,7 +35,7 @@ const logger = createLogger({
     ...action,
     type: String(action.type),
   }),
-  
+
   stateTransformer: (state) => state,
   errorTransformer: (error) => error,
 });
@@ -57,22 +58,20 @@ const reducerManager = createReducerManager(initialReducers);
 const sagaManager = createSagaManager(sagaMiddleware);
 
 // Tạo store
-type ExtendedStore =  IModuleStore & {
+type ExtendedStore = IModuleStore & {
   reducerManager: typeof reducerManager;
   sagaManager: typeof sagaManager;
 };
 
-
-export const store  = configureStore({
+export const store = configureStore({
   reducer: reducerManager.reduce,
   middleware: () => new Tuple(sagaMiddleware, ...(import.meta.env.DEV ? [logger] : [])),
   devTools: import.meta.env.DEV,
 }) as ExtendedStore;
 
-
 // Attach managers vào store
-  store.reducerManager = reducerManager;
-  store.sagaManager = sagaManager;
+store.reducerManager = reducerManager;
+store.sagaManager = sagaManager;
 
 // Run initial sagas
 if (appModule.sagas) {
@@ -91,38 +90,38 @@ if (authModule.initialActions) {
 }
 
 // Helper function để add module động
-store.addModule = <TState = any> (module: IModule<TState>) => {
+store.addModule = <TState = any>(module: IModule<TState>) => {
   const isNew = reducerManager.addModule(module);
-  
+
   if (isNew) {
     // Replace reducer
     store.replaceReducer(reducerManager.reduce);
-    
+
     // Run sagas nếu có
     if (module.sagas && module.sagas.length > 0) {
       sagaManager.runModuleSagas(module.id, module.sagas);
     }
-    
+
     // Dispatch initial actions
     if (module.initialActions) {
-      module.initialActions.forEach((action) => store.dispatch(action));
+      module.initialActions.forEach((action: any) => store.dispatch(action));
     }
   }
 };
 
 // Helper function để remove module
-store.removeModule =  <TState = any>  (module: IModule<TState>) => {
+store.removeModule = <TState = any>(module: IModule<TState>) => {
   const removed = reducerManager.removeModule(module);
-  
+
   if (removed) {
     // Dispatch final actions
     if (module.finalActions) {
       module.finalActions.forEach((action) => store.dispatch(action));
     }
-    
+
     // Cancel sagas
     sagaManager.cancelModuleSagas(module.id);
-    
+
     // Replace reducer
     store.replaceReducer(reducerManager.reduce);
   }
@@ -140,4 +139,3 @@ export interface IModuleStore<TState = any> extends ReturnType<typeof configureS
 }
 
 export default store;
-

@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_ENDPOINT;
 
- const endpoints = {
+const endpoints = {
   auth: {
     login: `${BASE_URL}/User/login`,
     logout: `${BASE_URL}/User/logout`,

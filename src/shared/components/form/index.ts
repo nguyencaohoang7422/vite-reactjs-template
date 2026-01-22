@@ -1,3 +1,2 @@
-export * from './FormInput'
-export * from './PasswordInputField'
-
+export * from './FormInput';
+export * from './PasswordInputField';

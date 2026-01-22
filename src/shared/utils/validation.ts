@@ -12,12 +12,12 @@ export default {
     const regex = /\d{4}\s\d{4}\s\d{4}\s\d{4}/;
     return regex.test(number);
   },
-  
-  checkRequired: (value:string) => {
+
+  checkRequired: (value: string) => {
     return value && value.trim().length > 0;
   },
   checkPassword: (password: string) => {
-      const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/;
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d\s])\S{8,}$/;
     return password ? regex.test(password.trim()) : false;
   },
   checkNumeric: (value: string) => {
@@ -46,10 +46,7 @@ export async function isValidImage(imgUrl: string) {
     image.src = imgUrl;
   });
 }
-export function isValidEmail(email:string) {
+export function isValidEmail(email: string) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
-
-
-

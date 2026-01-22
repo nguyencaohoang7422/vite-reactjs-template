@@ -1,3 +1,7 @@
-import type { RootState } from "@/configs";
+import type { RootState } from '@/configs';
+import { createDraftSafeSelectorCreator, weakMapMemoize } from '@reduxjs/toolkit';
 
-export const selectPath = (state: RootState) => state.app.path;
+const createWeakMapDraftSafeSelector = createDraftSafeSelectorCreator(weakMapMemoize);
+
+const selectSelf = (state: RootState) => state;
+export const selectApp = createWeakMapDraftSafeSelector(selectSelf, (state) => state.app);

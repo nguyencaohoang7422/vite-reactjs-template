@@ -1,42 +1,41 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 const PageNotFound = () => {
   const navigate = useNavigate();
   return (
-     <div className="min-h-screen bg-linear-to-br from-purple-900 via-blue-900 to-black flex items-center justify-center overflow-hidden relative">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-purple-900 via-blue-900 to-black">
       {/* Animated background particles */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob top-0 left-0"></div>
-        <div className="absolute w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 top-0 right-0"></div>
-        <div className="absolute w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 bottom-0 left-1/2"></div>
+        <div className="animate-blob absolute top-0 left-0 h-96 w-96 rounded-full bg-purple-500 opacity-20 mix-blend-multiply blur-3xl filter"></div>
+        <div className="animate-blob animation-delay-2000 absolute top-0 right-0 h-96 w-96 rounded-full bg-blue-500 opacity-20 mix-blend-multiply blur-3xl filter"></div>
+        <div className="animate-blob animation-delay-4000 absolute bottom-0 left-1/2 h-96 w-96 rounded-full bg-pink-500 opacity-20 mix-blend-multiply blur-3xl filter"></div>
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-10 px-4 text-center">
         {/* 3D Radiant 404 Text */}
         <div className="relative inline-block">
-          <h1 className="text-9xl md:text-[200px] font-black text-transparent bg-clip-text bg-linear-to-r from-purple-400 via-pink-500 to-blue-500 animate-gradient-x drop-shadow-2xl">
+          <h1 className="animate-gradient-x bg-linear-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-9xl font-black text-transparent drop-shadow-2xl md:text-[200px]">
             404
           </h1>
-          <div className="absolute inset-0 text-9xl md:text-[200px] font-black text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-purple-500 to-pink-500 blur-2xl opacity-50 animate-pulse">
+          <div className="absolute inset-0 animate-pulse bg-linear-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-9xl font-black text-transparent opacity-50 blur-2xl md:text-[200px]">
             404
           </div>
         </div>
 
         {/* Subtitle */}
-        <h2 className="text-2xl md:text-4xl font-bold text-white mt-8 mb-4 tracking-wide">
-          Trang Không Tồn Tại
-        </h2>
-        <p className="text-gray-300 text-lg md:text-xl mb-8 mx-auto">
+        <h2 className="mt-8 mb-4 text-2xl font-bold tracking-wide text-white md:text-4xl">Trang Không Tồn Tại</h2>
+        <p className="mx-auto mb-8 text-lg text-gray-300 md:text-xl">
           Rất tiếc, trang bạn đang tìm kiếm không thể được tìm thấy.
         </p>
 
         {/* Button */}
-        <button 
+        <button
           type="button"
-          onClick={()=>navigate('/')}
-          className="group relative px-8 py-4 bg-linear-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50">
-          <span className="relative z-10">Về   Trang Chủ</span>
-          <div className="absolute inset-0 bg-linear-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          onClick={() => navigate('/')}
+          className="group relative overflow-hidden rounded-full bg-linear-to-r from-purple-500 to-blue-500 px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50"
+        >
+          <span className="relative z-10">Về Trang Chủ</span>
+          <div className="absolute inset-0 bg-linear-to-r from-blue-500 to-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
         </button>
       </div>
 
@@ -76,7 +75,7 @@ const PageNotFound = () => {
         }
       `}</style>
     </div>
-  )
-}
+  );
+};
 
-export default PageNotFound
+export default PageNotFound;

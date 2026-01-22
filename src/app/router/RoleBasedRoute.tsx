@@ -1,22 +1,19 @@
-import type { RootState } from '@/configs';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
+import type { ReactNode } from 'react';
+import { selectAuthState } from '@/auth';
 
 interface RoleBasedRouteProps {
   allowedRoles: string[];
-  children?: React.ReactNode;
+  children?: ReactNode;
   redirectPath?: string;
 }
 
-export const RoleBasedRoute = ({ 
-  allowedRoles, 
-  children,
-  redirectPath = '/forbidden'
-}: RoleBasedRouteProps) => {
-  const { user, isLoading } = useSelector((state: RootState) => state.auth);
+export const RoleBasedRoute = ({ allowedRoles, children, redirectPath = '/forbidden' }: RoleBasedRouteProps) => {
+  const { user, isLoading } = useSelector(selectAuthState());
 
   if (isLoading) {
-    return <div>Loading....</div>
+    return <div>Loading....</div>;
   }
 
   // Kiểm tra nếu chưa đăng nhập

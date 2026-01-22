@@ -1,21 +1,30 @@
-import { Label } from "@radix-ui/react-label";
-import { Button, Input } from "../ui";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Label } from '@radix-ui/react-label';
+import { Button, Input } from '../ui';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/shared';
+import type { ReactNode } from 'react';
 
-const DialogModal = () => {
+type DialogModalProps = {
+  children: ReactNode;
+  onSubmit?: (formData?: any) => void;
+};
+const DialogModal = ({ children, onSubmit }: DialogModalProps) => {
   return (
-     <Dialog>
-      <form>
-        <DialogTrigger asChild>
-          <Button variant="outline">Open Dialog</Button>
-        </DialogTrigger>
+    <Dialog>
+      <form onSubmit={onSubmit}>
+        <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
-            </DialogDescription>
+            <DialogDescription>Make changes to your profile here. Click save when you&apos;re done.</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
@@ -36,7 +45,7 @@ const DialogModal = () => {
         </DialogContent>
       </form>
     </Dialog>
-  )
-}
+  );
+};
 
-export default DialogModal
+export default DialogModal;

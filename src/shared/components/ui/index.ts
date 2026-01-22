@@ -9,4 +9,4 @@ export * from './skeleton';
 export * from './sonner';
 export * from './table';
 export * from './tooltip';
-
+export * from './dropdown-menu.tsx';

@@ -5,7 +5,7 @@ const PageForbidden = () => {
       <p>Sorry,you not permission to access this page.</p>
       <a href="/">Go back to Home</a>
     </div>
-  )
-}
+  );
+};
 
-export default PageForbidden
+export default PageForbidden;

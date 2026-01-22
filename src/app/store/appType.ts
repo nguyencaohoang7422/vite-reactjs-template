@@ -1,1 +1,1 @@
-export type ThemeState = 'default'| 'dark'
+export type ThemeState = 'default' | 'dark';

@@ -3,6 +3,4 @@ import { routes } from './routes';
 
 export const router = createBrowserRouter(routes); // loading routes
 
-export const AppRouter = () => (
-  <RouterProvider router={router} />
-);
+export const AppRouter = () => <RouterProvider router={router} />;

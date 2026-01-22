@@ -1,14 +1,13 @@
-import { store } from "@/configs";
-import { cookieName } from "../constants";
+import { store } from '@/configs';
+import { cookieName, getValue } from '@/shared';
 
 const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
-  
   // 1. Request Interceptor: Tự động gắn Token
-  const tokenFromCookie = await cookieStore.get(cookieName);
-const token = store.getState().auth.token || tokenFromCookie;
-    
+  const tokenFromCookie = getValue(cookieName);
+  const token = (store.getState() as { auth: { token: string } }).auth.token || tokenFromCookie;
+
   const headers = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...options.headers,
   };
@@ -24,17 +23,15 @@ const token = store.getState().auth.token || tokenFromCookie;
 
     return await response.json();
   } catch (error: any) {
-    console.error("API Error:", error.message);
+    console.error('API Error:', error.message);
     throw error;
   }
 };
 
 // 3. Export các phương thức tiện ích
 export const fetchApi = {
-  get: (url: string) => apiFetch(url, { method: "GET" }),
-  post: (url: string, data: any) => 
-    apiFetch(url, { method: "POST", body: JSON.stringify(data) }),
-  put: (url: string, data: any) => 
-    apiFetch(url, { method: "PUT", body: JSON.stringify(data) }),
-  delete: (url: string) => apiFetch(url, { method: "DELETE" }),
+  get: (url: string) => apiFetch(url, { method: 'GET' }),
+  post: (url: string, data: any) => apiFetch(url, { method: 'POST', body: JSON.stringify(data) }),
+  put: (url: string, data: any) => apiFetch(url, { method: 'PUT', body: JSON.stringify(data) }),
+  delete: (url: string) => apiFetch(url, { method: 'DELETE' }),
 };

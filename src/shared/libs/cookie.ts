@@ -1,5 +1,7 @@
 import CryptoJS from 'crypto-js';
 import Cookies from 'js-cookie';
+import { cookieName } from '@/shared';
+
 const SECRET_KEY = 'my-secret-key';
 type StorageType = 'cookie' | 'session';
 
@@ -8,34 +10,35 @@ type StorageType = 'cookie' | 'session';
  * @param name Tên cookie |session
  * @param value Giá trị cookie |session
  * @param options Tuỳ chọn cookie (expires, path, ...)
+ * @param storageType
  */
 export function setValue(
-  name: string,
   value: string,
+  name?: string,
   options?: Cookies.CookieAttributes,
-  storageType: StorageType = 'cookie'
+  storageType: StorageType = 'cookie',
 ) {
+  const key = name || cookieName;
   const encrypted = CryptoJS.AES.encrypt(value, SECRET_KEY).toString();
   if (storageType === 'cookie') {
-    Cookies.set(name, encrypted, options);
+    Cookies.set(key, encrypted, options);
   } else {
-    sessionStorage.setItem(name, encrypted);
+    sessionStorage.setItem(key, encrypted);
   }
 }
 /**
  * Lấy giá trị cookie | session
  * @param name Tên cookie | session
+ * @param storageType
  * @returns Giá trị cookie hoặc undefined nếu không tồn tại
  */
-export function getValue(
-  name: string,
-  storageType: StorageType = 'cookie'
-): string | undefined {
+export function getValue(name?: string, storageType: StorageType = 'cookie'): string | undefined {
   let encrypted: string | undefined;
+  const key = name ?? cookieName;
   if (storageType === 'cookie') {
-    encrypted = Cookies.get(name);
+    encrypted = Cookies.get(key);
   } else {
-    encrypted = sessionStorage.getItem(name) || undefined;
+    encrypted = sessionStorage.getItem(key) || undefined;
   }
   if (!encrypted) return undefined;
   try {
@@ -49,15 +52,13 @@ export function getValue(
  * Xoá cookie | session
  * @param name Tên cookie | session
  * @param options Tuỳ chọn cookie (path, ...)
+ * @param storageType
  */
-export function removeValue(
-  name: string,
-  options?: Cookies.CookieAttributes,
-  storageType: StorageType = 'cookie'
-) {
+export function removeValue(name?: string, options?: Cookies.CookieAttributes, storageType: StorageType = 'cookie') {
+  const key = name || cookieName;
   if (storageType === 'cookie') {
-    Cookies.remove(name, options);
+    Cookies.remove(key, options);
   } else {
-    sessionStorage.removeItem(name);
+    sessionStorage.removeItem(key);
   }
 }

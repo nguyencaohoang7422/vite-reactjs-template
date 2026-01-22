@@ -21,7 +21,10 @@ dayjs.locale('vi');
  * Tạo một hàm wrapper để không cần truyền format thủ công ở khắp nơi.
  * Bạn có thể định nghĩa các "kiểu" định dạng phổ biến của dự án tại đây.
  */
-export const formatDate = (date: string | Date | number, type: 'full' | 'dateOnly' | 'timeOnly' | 'fromNow' = 'full') => {
+export const formatDate = (
+  date: string | Date | number,
+  type: 'full' | 'dateOnly' | 'timeOnly' | 'fromNow' = 'full',
+) => {
   const instance = dayjs(date);
   switch (type) {
     case 'dateOnly':
@@ -36,4 +39,3 @@ export const formatDate = (date: string | Date | number, type: 'full' | 'dateOnl
   }
 };
 export { default } from 'dayjs';
-

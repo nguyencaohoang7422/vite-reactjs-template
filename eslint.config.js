@@ -18,13 +18,15 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'prettier': prettierPlugin,
+      prettier: prettierPlugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'prettier/prettier': 'error', // Báo lỗi ESLint nếu sai định dạng Prettier
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
-  prettierConfig // Luôn đặt cuối cùng để ghi đè các rule cũ
+  prettierConfig, // Luôn đặt cuối cùng để ghi đè các rule cũ
 );

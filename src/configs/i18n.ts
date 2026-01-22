@@ -2,6 +2,7 @@ import viJson from '@/shared/locales//vi.json';
 import enJson from '@/shared/locales/en.json';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
 export const defaultNS = 'en';
 const i18n = i18next.createInstance();
 const resources = {
@@ -19,7 +20,7 @@ i18n.use(initReactI18next).init({
   resources,
   interpolation: { escapeValue: false },
   compatibilityJSON: 'v4',
-  debug: true,
+  debug: false,
   ns: ['common'],
   defaultNS: 'common',
 });

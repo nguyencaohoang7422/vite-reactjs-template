@@ -1,4 +1,4 @@
-export const removeAccents = (str:string, isLowerCase = true) => {
+export const removeAccents = (str: string, isLowerCase = true) => {
   str = str || '';
   str = str.replaceAll(/[\u0300-\u036f]/g, '');
   str = str.replaceAll(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
