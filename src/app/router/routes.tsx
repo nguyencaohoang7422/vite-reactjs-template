@@ -1,24 +1,21 @@
 import type { RouteObject } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
+import { PATH_ROUTING } from '@/shared';
 import { PublicRoute } from './PublicRoute';
-
 // Layouts
+import HomePage from '@/features/home/pages/page.tsx';
 import { AuthLayout } from '@/shared/components/layout/AuthLayout/AuthLayout';
-
-// Public Pages
 import PrivateLayout from '@/shared/components/layout/PrivateLayout';
-import ErrorPage from '@/shared/pages/error-page';
+// Public Pages
+import LoginPage from '@/auth/pages/LoginPage.tsx';
+// Feature routes
 import PageForbidden from '@/shared/pages/forbidden';
 import PageNotFound from '@/shared/pages/not-found';
-import HomePage from '@/features/home/pages/page.tsx';
-import LoginPage from '@/auth/pages/LoginPage.tsx';
-import StaffUI from '@/features/timekeeping/pages/staff.tsx';
-import AccountManagersUI from '@/features/account-managers/pages/AccountManagersUI.tsx';
-
-// Protected Pages
+import features from '@/features';
+import ErrorPage from '@/shared/pages/error-page';
 
 export const routes: RouteObject[] = [
-  // Auth routes (restricted for logged in users)
+  // Auth routes (restricted for login users)
   {
     element: (
       <PublicRoute restricted={true}>
@@ -27,20 +24,12 @@ export const routes: RouteObject[] = [
     ),
     children: [
       {
-        path: '/login',
+        path: PATH_ROUTING.LOGIN,
         element: <LoginPage />,
       },
-      // {
-      //   path: '/register',
-      //   element: <RegisterPage />,
-      // },
-      // {
-      //   path: '/forgot-password',
-      //   element: <div>Forgot Password Page</div>,
-      // },
     ],
   },
-  // Protected routes với DashboardLayout
+  // Protected routes with home layout
   {
     element: (
       <ProtectedRoute>
@@ -53,56 +42,9 @@ export const routes: RouteObject[] = [
         path: '/',
         element: <HomePage />,
       },
-      {
-        path: '/timekeeping',
-        element: <StaffUI />,
-      },
-      {
-        path: '/account-managers',
-        element: <AccountManagersUI />,
-      },
-      // {
-      //   path: '/profile',
-      //   element: <ProfilePage />,
-      // },
-      // {
-      //   path: '/settings',
-      //   element: <SettingsPage />,
-      // },
-
-      // Nested routes cho Products feature
-      {
-        path: '/products',
-        children: [
-          //   {
-          //     index: true,
-          //     element: <ProductListPage />,
-          //   },
-          //   {
-          //     path: ':productId',
-          //     element: <ProductDetailPage />,
-          //   },
-          //   {
-          //     path: 'create',
-          //     element: <ProductCreatePage />,
-          //   },
-        ],
-      },
+      ...features,
     ],
   },
-
-  // Admin routes - chỉ cho admin role
-  // {
-  //   element: (
-  //     <RoleBasedRoute allowedRoles={['admin', 'superadmin']}>
-  //       {/* <DashboardLayout /> */}
-  //     </RoleBasedRoute>
-  //   ),
-  //    errorElement: <ErrorPage />,
-  //   children: [
-  //
-  //   ],
-  // },
 
   // Forbidden route - khi không có quyền truy cập
   {
@@ -113,7 +55,6 @@ export const routes: RouteObject[] = [
   // 404 route - phải ở cuối cùng để catch tất cả các path không match
   {
     path: '*',
-    errorElement: <ErrorPage />,
     element: <PageNotFound />,
   },
 ];

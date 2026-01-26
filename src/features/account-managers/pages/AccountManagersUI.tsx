@@ -1,15 +1,15 @@
 import { Button, withDynamicModule } from '@/shared';
-import { getModule, loading, selectStateByKey } from '@/features/account-managers';
-import { useDispatch, useSelector } from 'react-redux';
+import { getModule, loading } from '@/features/account-managers';
+import { useDispatch } from 'react-redux';
+import { TableActions } from '@/shared/components/table/data-table.tsx';
 
 const AccountManagersUI = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectStateByKey('list'));
-  console.log('🚀 ~ AccountManagersUI ~ user: ', user);
 
   return (
     <div>
       <Button onClick={() => dispatch(loading())}>AccountManagersUI</Button>
+      <TableActions />
     </div>
   );
 };

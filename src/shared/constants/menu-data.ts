@@ -1,3 +1,5 @@
+import { PATH_ROUTING } from '@/shared';
+
 export type MenuItem = {
   id: string;
   position: number;
@@ -14,7 +16,7 @@ export const menuData2: MenuItem[] = [
     id: 'managers',
     position: 0,
     key: 'managers',
-    link: '/account-managers',
+    link: PATH_ROUTING.ACCOUNT_MANAGERS,
   },
   {
     id: 'cameraGroup',

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 import type { ReactNode } from 'react';
-import { selectAuthState } from '@/auth';
+import { type AuthState, selectAuthState } from '@/auth';
 
 interface RoleBasedRouteProps {
   allowedRoles: string[];
@@ -10,7 +10,7 @@ interface RoleBasedRouteProps {
 }
 
 export const RoleBasedRoute = ({ allowedRoles, children, redirectPath = '/forbidden' }: RoleBasedRouteProps) => {
-  const { user, isLoading } = useSelector(selectAuthState());
+  const { user, isLoading } = useSelector(selectAuthState()) as AuthState;
 
   if (isLoading) {
     return <div>Loading....</div>;
@@ -22,7 +22,7 @@ export const RoleBasedRoute = ({ allowedRoles, children, redirectPath = '/forbid
   }
 
   // Kiểm tra role của user
-  const hasRequiredRole = allowedRoles.includes(user.role);
+  const hasRequiredRole = allowedRoles.includes(user?.userPermissionTypeId);
 
   if (!hasRequiredRole) {
     return <Navigate to={redirectPath} replace />;

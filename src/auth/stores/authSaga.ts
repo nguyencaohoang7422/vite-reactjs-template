@@ -50,11 +50,11 @@ export function* loginSaga(action: PayloadAction<{ username: string; password: s
       navigate('/');
       toast.success('Đăng nhập thành công');
     } else {
-      toast.error(response.message);
+      toast.error(response?.message);
     }
   } catch (error: any) {
     yield put(loginFailure(error.message));
-    if (error?.message) {
+    if (error.message) {
       toast.error(error.message);
     }
   }

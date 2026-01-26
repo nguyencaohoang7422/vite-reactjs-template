@@ -4,3 +4,7 @@
 
 # Ignore node modules
 /node_modules
+
+# Ignore declare files
+/src/configs/*
+/src/shared/constants/index.ts

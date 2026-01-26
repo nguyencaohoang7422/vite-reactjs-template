@@ -1,8 +1,8 @@
+import { createSelector } from '@reduxjs/toolkit';
+import type { AuthState } from '@/auth';
+import { initialState, moduleName } from '@/auth';
 import type { RootState } from '@/configs';
-import { createDraftSafeSelectorCreator, weakMapMemoize } from '@reduxjs/toolkit';
 
-const createWeakMapDraftSafeSelector = createDraftSafeSelectorCreator(weakMapMemoize);
-
-const selectSelf = (state: RootState) => state;
-export const selectAuthState = (key?: string) =>
-  createWeakMapDraftSafeSelector(selectSelf, (state) => (key ? state.auth[key] : state.auth));
+export const makeSelectDomain = (state: any): AuthState => state[moduleName as keyof RootState] || initialState;
+export const selectAuthState = (key?: keyof AuthState) =>
+  createSelector(makeSelectDomain, (state) => (key ? state[key] : state));

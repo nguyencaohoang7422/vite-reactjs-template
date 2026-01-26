@@ -1,9 +1,9 @@
-import { DataTable } from './data-table';
+import { TableActions } from './data-table';
 
 export default function DemoPage() {
   return (
     <div className="container mx-auto py-10">
-      <DataTable />
+      <TableActions />
     </div>
   );
 }

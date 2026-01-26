@@ -32,10 +32,7 @@ const ModuleCard = memo(({ nameKey, menuItem, icon, link, className }: ModuleCar
 
   return (
     <div
-      className={cn(
-        'rounded-2xl border border-gray-100 bg-white px-6 py-6 xl:py-[27px] dark:border-gray-800 dark:bg-white/[0.03]',
-        className,
-      )}
+      className={cn('rounded-2xl border border-gray-100 bg-card-foreground bg-white px-6 py-6 xl:py-[27px]', className)}
     >
       <div className={'flex items-center justify-between'}>
         {icon && <HouseLineIcon />}

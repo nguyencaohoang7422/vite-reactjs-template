@@ -11,7 +11,8 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute = ({ children, redirectPath = '/login' }: ProtectedRouteProps) => {
   const location = useLocation();
-  const { user, isLoading } = useSelector(selectAuthState());
+  const user = useSelector(selectAuthState('user'));
+  const isLoading = useSelector(selectAuthState('isLoading'));
 
   // Hiển thị loading trong khi check authentication
   if (isLoading) {

@@ -1,7 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { AuthState, User } from '@/auth';
 
-const initialState: AuthState = {
+export const moduleName = 'auth';
+export const initialState: AuthState = {
   user: null,
   token: null,
   isLoading: false,
@@ -9,7 +10,7 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: moduleName,
   initialState,
   reducers: {
     checkAuth: (state) => {
