@@ -1,4 +1,5 @@
 import '@/configs';
+import '@/shared/api';
 import '@/shared/constants';
 import '@/styles/index.css'; // css config
 import { StrictMode } from 'react';

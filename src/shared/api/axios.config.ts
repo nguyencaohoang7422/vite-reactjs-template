@@ -1,7 +1,7 @@
-import { store } from '@/configs';
 import { logout } from '@/auth/stores/authSlice';
-import axios from 'axios';
+import { store } from '@/configs';
 import { cookieName } from '@/shared';
+import axios from 'axios';
 import { getValue } from '../libs';
 
 const axiosInstance = axios.create({
@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 403) {
       store.dispatch(logout());
     }
-    return Promise.reject(error.response.data);
+    return Promise.reject(error.response?.data || error.response);
   },
 );
 

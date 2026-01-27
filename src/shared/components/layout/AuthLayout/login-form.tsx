@@ -2,17 +2,26 @@ import { type LoginFormData, loginSchema } from '@/auth/schemas/loginSchema.ts';
 import { loginRequest } from '@/auth/stores/authSlice';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSeparator } from '@/shared/components/ui/field';
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator,
+} from '@/shared/components/ui/field';
 import { Input } from '@/shared/components/ui/input';
 import { cn } from '@/shared/libs/utils';
 import { yupResolver } from '@hookform/resolvers/yup';
+import type { ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import PasswordInputField from '../../form/PasswordInputField';
-import type { ComponentProps } from 'react';
 
 export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
   const dispatch = useDispatch();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -27,7 +36,8 @@ export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
     },
   });
   const onsubmit = (data: LoginFormData) => {
-    dispatch(loginRequest(data));
+    const from = location.state?.from?.pathname || '/';
+    dispatch(loginRequest({ ...data, redirectTo: from }));
   };
 
   return (
@@ -46,15 +56,15 @@ export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
                   autoComplete="username"
                   id="username"
                   type="text"
+                  autoFocus
                   placeholder="Enter your username"
                   required
                   className="text-[1.3rem]"
                   {...register('username')}
                 />
-                {errors.username?.message && <span>{errors.username?.message}</span>}
+                {errors.username?.message && <FieldError>{errors.username?.message}</FieldError>}
               </Field>
               <PasswordInputField register={register('password')} error={errors.password?.message} />
-
               <Field>
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? (
@@ -68,8 +78,7 @@ export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="lucide lucide-loader-circle-icon lucide-loader-circle"
-                    >
+                      className="lucide lucide-loader-circle-icon lucide-loader-circle">
                       <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                     </svg>
                   ) : (

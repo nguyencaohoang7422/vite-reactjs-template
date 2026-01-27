@@ -50,7 +50,6 @@ export function ThemeProvider({
       setTheme(theme);
     },
   };
-
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
       {children}

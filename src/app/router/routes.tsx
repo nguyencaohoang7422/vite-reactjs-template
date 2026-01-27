@@ -1,6 +1,6 @@
-import type { RouteObject } from 'react-router-dom';
-import { ProtectedRoute } from './ProtectedRoute';
 import { PATH_ROUTING } from '@/shared';
+import { type RouteObject } from 'react-router-dom';
+import { ProtectedRoute } from './ProtectedRoute';
 import { PublicRoute } from './PublicRoute';
 // Layouts
 import HomePage from '@/features/home/pages/page.tsx';
@@ -9,10 +9,10 @@ import PrivateLayout from '@/shared/components/layout/PrivateLayout';
 // Public Pages
 import LoginPage from '@/auth/pages/LoginPage.tsx';
 // Feature routes
-import PageForbidden from '@/shared/pages/forbidden';
-import PageNotFound from '@/shared/pages/not-found';
 import features from '@/features';
 import ErrorPage from '@/shared/pages/error-page';
+import PageForbidden from '@/shared/pages/forbidden';
+import PageNotFound from '@/shared/pages/not-found';
 
 export const routes: RouteObject[] = [
   // Auth routes (restricted for login users)

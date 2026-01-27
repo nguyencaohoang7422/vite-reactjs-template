@@ -1,5 +1,3 @@
-import { Label } from '@radix-ui/react-label';
-import { Button, Input } from '../ui';
 import {
   Dialog,
   DialogClose,
@@ -10,7 +8,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/shared';
+import { Label } from '@radix-ui/react-label';
 import type { ReactNode } from 'react';
+import { Button, Input } from '../ui';
 
 type DialogModalProps = {
   children: ReactNode;
@@ -21,7 +21,7 @@ const DialogModal = ({ children, onSubmit }: DialogModalProps) => {
     <Dialog>
       <form onSubmit={onSubmit}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-106.25">
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>Make changes to your profile here. Click save when you&apos;re done.</DialogDescription>
@@ -38,7 +38,9 @@ const DialogModal = ({ children, onSubmit }: DialogModalProps) => {
           </div>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" className="text-accent-foreground">
+                Cancel
+              </Button>
             </DialogClose>
             <Button type="submit">Save changes</Button>
           </DialogFooter>

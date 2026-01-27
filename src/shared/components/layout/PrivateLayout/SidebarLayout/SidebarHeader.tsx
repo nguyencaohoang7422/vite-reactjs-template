@@ -9,7 +9,7 @@ const SidebarHeader = () => {
   return (
     <div className="flex items-center justify-between gap-0">
       <img src={companyLogoURL} width={40} height={40} alt="logo-image" className="rounded-xl" />
-      <h2 className="w-full max-w-35 truncate text-base leading-5 font-bold tracking-normal text-primary-800">
+      <h2 className="text-primary-800 w-full max-w-35 truncate text-base leading-5 font-bold tracking-normal">
         {companyName}
       </h2>
       <button

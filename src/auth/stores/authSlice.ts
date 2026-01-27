@@ -1,5 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { AuthState, User } from '@/auth';
+import { removeValue, setValue } from '@/shared';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 export const moduleName = 'auth';
 export const initialState: AuthState = {
@@ -17,17 +18,19 @@ const authSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
-    loginRequest: (state, _action: PayloadAction<{ username: string; password: string }>) => {
+    loginRequest: (state, _action: PayloadAction<{ username: string; password: string; redirectTo: string }>) => {
       state.isLoading = true;
       state.error = null;
     },
     loginSuccess: (state, action: PayloadAction<{ user: User; token: string; rememberMe: boolean }>) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
-      state.isLoading = false;
+      setValue(action.payload.token);
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
       state.error = action.payload;
     },
     logout: () => {},
@@ -36,10 +39,11 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoading = false;
       state.error = null;
+      removeValue();
     },
   },
 });
 
-export const { loginRequest, loginSuccess, checkAuth, loginFailure, logout, clearAuth } = authSlice.actions;
+export const { loginRequest, setLoading, loginSuccess, checkAuth, loginFailure, logout, clearAuth } = authSlice.actions;
 
 export default authSlice.reducer;

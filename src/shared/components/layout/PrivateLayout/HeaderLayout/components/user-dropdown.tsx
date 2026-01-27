@@ -1,12 +1,23 @@
+import { type Theme, useTheme } from '@/app/providers/theme-provider.tsx';
+import { logout, selectAuthState, type User } from '@/auth';
 import {
   Button,
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuShortcut,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@/shared';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuTrigger,
+} from '@/shared/components/ui';
 import {
   MonitorIcon,
   MoonIcon,
@@ -16,21 +27,9 @@ import {
   TranslateIcon,
   UserCircleIcon,
 } from '@phosphor-icons/react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuTrigger,
-} from '@/shared/components/ui';
-import { useDispatch, useSelector } from 'react-redux';
-import DialogModal from '@/shared/components/dialog';
 import { useState } from 'react';
-import { logout, selectAuthState, type User } from '@/auth';
 import { useTranslation } from 'react-i18next';
-import { type Theme, useTheme } from '@/app/providers/theme-provider.tsx';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserDropdown = () => {
   const dispatch = useDispatch();
@@ -41,22 +40,16 @@ const UserDropdown = () => {
   //selector
   const { imageURL, username } = useSelector(selectAuthState('user')) as User;
 
-  const handleLogout = () => {
-    console.log(~'Logging out...');
-    dispatch(logout());
-  };
+  const handleLogout = () => dispatch(logout());
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal>
       <DropdownMenuTrigger asChild>
-        <Button variant={'ghost'} className={'size-4 !p-0 text-foreground'} size={'icon-sm'}>
-          <UserCircleIcon className={'w-full text-foreground'} />
+        <Button variant={'ghost'} className={'p-0 text-accent-foreground'} size={'icon-sm'}>
+          <UserCircleIcon className={'w-full text-foreground!'} />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        onCloseAutoFocus={(e) => e.preventDefault()}
-        className="z-50 max-h-(--radix-dropdown-menu-content-available-height) w-56 min-w-20 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
-        align="start">
+      <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()} className="" align="start">
         <DropdownMenuLabel className="flex items-center gap-3 px-2 py-1.5 text-sm font-medium data-inset:pl-8">
           <img src={imageURL} alt={'avatar'} height={40} width={40} />
           <span>{username ?? 'unknown'}</span>
@@ -110,13 +103,12 @@ const UserDropdown = () => {
         </DropdownMenuSub>
 
         <DropdownMenuSeparator />
-        <DialogModal onSubmit={handleLogout}>
-          <Button type={'button'} variant={'ghost'}>
-            <SignOutIcon />
+        <DropdownMenuItem asChild>
+          <Button onClick={handleLogout} className="w-full text-accent-foreground" type={'button'} variant={'ghost'}>
+            <SignOutIcon className="text-foreground!" />
             Sign Out
-            <DropdownMenuShortcut>Alt + F4</DropdownMenuShortcut>
           </Button>
-        </DialogModal>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
