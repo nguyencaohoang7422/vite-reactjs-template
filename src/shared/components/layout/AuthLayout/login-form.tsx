@@ -59,7 +59,7 @@ export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
                   autoFocus
                   placeholder="Enter your username"
                   required
-                  className="text-[1.3rem]"
+                  className=""
                   {...register('username')}
                 />
                 {errors.username?.message && <FieldError>{errors.username?.message}</FieldError>}

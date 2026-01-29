@@ -9,6 +9,15 @@ const endpoints = {
   user: {
     // info: `${BASE_URL}/User/info`,
   },
+  timekeeping: {
+    staff: {
+      pagination: `${BASE_URL}/TimekeepingUser/pagination`,
+      insert: `${BASE_URL}/TimekeepingUser/insert`,
+      insertMany: `${BASE_URL}/TimekeepingUser/insertMany`,
+      update: `${BASE_URL}/TimekeepingUser/update`,
+      delete: `${BASE_URL}/TimekeepingUser/delete`,
+    },
+  },
 };
 
 export default endpoints;

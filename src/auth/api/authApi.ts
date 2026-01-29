@@ -1,6 +1,6 @@
+import type { AuthResponse, LoginCredentials } from '@/auth/stores/authTypes';
 import { apiClient } from '@/shared/api/apiClient';
 import endpoints from '@/shared/api/endpoints';
-import type { AuthResponse, LoginCredentials } from '@/auth/stores/authTypes';
 
 export const loginApi = async (credentials: LoginCredentials) => {
   const response = await apiClient.post<AuthResponse>(endpoints.auth.login, credentials);
@@ -18,7 +18,6 @@ export const loginWithToken = async ({ token }: { token: string }) => {
   );
   return response.data;
 };
-
 export const logoutApi = async () => {
   const response = await apiClient.post<AuthResponse>(endpoints.auth.logout);
   return response.data;

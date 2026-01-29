@@ -18,6 +18,7 @@ import {
   DropdownMenuSub,
   DropdownMenuTrigger,
 } from '@/shared/components/ui';
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar';
 import {
   MonitorIcon,
   MoonIcon,
@@ -49,9 +50,12 @@ const UserDropdown = () => {
           <UserCircleIcon className={'w-full text-foreground!'} />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()} className="" align="start">
+      <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()} className="border-border" align="start">
         <DropdownMenuLabel className="flex items-center gap-3 px-2 py-1.5 text-sm font-medium data-inset:pl-8">
-          <img src={imageURL} alt={'avatar'} height={40} width={40} />
+          <Avatar>
+            <AvatarImage src={imageURL} alt="avatar" className="grayscale" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
           <span>{username ?? 'unknown'}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -62,7 +66,7 @@ const UserDropdown = () => {
             Language
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
-            <DropdownMenuSubContent>
+            <DropdownMenuSubContent className="border-border">
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Appearance</DropdownMenuLabel>
                 <DropdownMenuRadioGroup value={i18n.language} onValueChange={(lang) => i18n.changeLanguage(lang)}>

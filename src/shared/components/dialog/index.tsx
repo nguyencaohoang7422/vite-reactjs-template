@@ -1,6 +1,6 @@
 import {
+  cn,
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -8,44 +8,49 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/shared';
-import { Label } from '@radix-ui/react-label';
-import type { ReactNode } from 'react';
-import { Button, Input } from '../ui';
+import { type ReactNode } from 'react';
 
 type DialogModalProps = {
+  title: ReactNode;
+  trigger: ReactNode;
   children: ReactNode;
-  onSubmit?: (formData?: any) => void;
+  description?: ReactNode;
+  actions?: ReactNode;
+  contentClassName?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  clickOutSide?: boolean;
 };
-const DialogModal = ({ children, onSubmit }: DialogModalProps) => {
+
+const DialogModal = ({
+  open,
+  onOpenChange,
+  title,
+  description,
+  trigger,
+  children,
+  actions,
+  contentClassName,
+  clickOutSide = false,
+}: DialogModalProps) => {
   return (
-    <Dialog>
-      <form onSubmit={onSubmit}>
-        <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="sm:max-w-106.25">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>Make changes to your profile here. Click save when you&apos;re done.</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4">
-            <div className="grid gap-3">
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
-            </div>
-          </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline" className="text-accent-foreground">
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </form>
+    <Dialog modal open={open} onOpenChange={onOpenChange}>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogContent
+        onPointerDownOutside={(event) => {
+          if (!clickOutSide) {
+            event.preventDefault();
+          }
+        }}
+        aria-describedby="dialog"
+        className={cn('text-foreground', contentClassName || 'sm:max-w-106.25')}>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          {description && <DialogDescription>{description}</DialogDescription>}
+        </DialogHeader>
+        <div className="grid gap-4">{children}</div>
+        {actions && <DialogFooter>{actions}</DialogFooter>}
+      </DialogContent>
     </Dialog>
   );
 };

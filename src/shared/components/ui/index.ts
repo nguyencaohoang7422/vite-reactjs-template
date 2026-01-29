@@ -1,7 +1,10 @@
+export * from './avatar.tsx';
 export * from './button';
+export * from './button-group.tsx';
 export * from './card';
 export * from './checkbox';
 export * from './dialog';
+export * from './dropdown-menu.tsx';
 export * from './input';
 export * from './label';
 export * from './separator';
@@ -9,4 +12,3 @@ export * from './skeleton';
 export * from './sonner';
 export * from './table';
 export * from './tooltip';
-export * from './dropdown-menu.tsx';

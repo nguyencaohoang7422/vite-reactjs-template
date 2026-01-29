@@ -21,16 +21,16 @@ export const menuData2: MenuItem[] = [
   {
     id: 'timekeeping',
     position: 1,
-    link: '/timekeeping',
+    link: PATH_ROUTING.TIMEKEEPING,
     icon: 'map-trifold',
     key: 'timekeeping',
     menuItems: [
       {
-        id: '1',
-        icon: '12',
-        link: '12',
+        id: 'staff',
+        icon: 'staff',
+        link: PATH_ROUTING.STAFF,
         position: 1,
-        key: '123',
+        key: 'staff',
       },
     ],
   },

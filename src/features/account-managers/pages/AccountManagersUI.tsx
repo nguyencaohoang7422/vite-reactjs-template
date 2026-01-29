@@ -1,7 +1,6 @@
-import { Button, withDynamicModule } from '@/shared';
 import { getModule, loading } from '@/features/account-managers';
+import { Button, withDynamicModule } from '@/shared';
 import { useDispatch } from 'react-redux';
-import { TableActions } from '@/shared/components/table/data-table.tsx';
 
 const AccountManagersUI = () => {
   const dispatch = useDispatch();
@@ -9,7 +8,6 @@ const AccountManagersUI = () => {
   return (
     <div>
       <Button onClick={() => dispatch(loading())}>AccountManagersUI</Button>
-      <TableActions />
     </div>
   );
 };
