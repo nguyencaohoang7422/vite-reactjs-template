@@ -1,18 +1,29 @@
-import { Button, Input, useDispatchResolve } from '@/shared';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/shared/components/ui/field';
+import { Avatar, AvatarFallback, AvatarImage, Button, useDispatchResolve } from '@/shared';
+import { MultipleCombobox } from '@/shared/components/common/MultipleCombobox';
+import { ComboboxPopup } from '@/shared/components/common/SampleCombobox';
+import InputField from '@/shared/components/form/registers/InputField';
+import { Field, FieldGroup } from '@/shared/components/ui/field';
+import useTranslate from '@/shared/hooks/useTranslate';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { staffScope } from '..';
 import { staffFormSchema, type StaffFormData } from '../../schemas';
-import { insert } from '../../stores';
+import { selectStaffState, type Shift, type Staff } from '../../stores';
 
 type StaffFormProps = {
-  data?: any;
+  data?: Staff;
   onClose: () => void;
 };
 const StaffForm = ({ data, onClose }: StaffFormProps) => {
   const dispatchResolve = useDispatchResolve();
+  const shiftList = useSelector(selectStaffState('shiftList')) as Shift[];
+  const { translate } = useTranslate(staffScope);
   const {
     handleSubmit,
+    control,
+    reset,
     formState: { errors, isSubmitting },
     register,
   } = useForm({
@@ -24,55 +35,124 @@ const StaffForm = ({ data, onClose }: StaffFormProps) => {
       email: '',
       note: '',
       passwordTimekeeping: '',
+      timekeepingShiftIds: [],
     },
     mode: 'onSubmit',
     resolver: yupResolver(staffFormSchema),
   });
 
-  const handleActionForm = async (formData: StaffFormData) => {
-    const response = await dispatchResolve(insert(formData));
-    if (response?.success) {
-      onClose();
+  useEffect(() => {
+    if (data != null) {
+      reset({
+        email: data.email,
+        id: data.id,
+        note: data.note,
+        imageUrl: data.imageURL,
+        name: data.name,
+        timekeepingShiftIds: data.timekeepingShiftIds,
+        phoneNumber: data.phoneNumber,
+      });
     }
+  }, [data, reset]);
+
+  const handleActionForm = async (formData: StaffFormData) => {
+    const submitData = {
+      id: formData.id,
+      name: formData.name,
+      note: formData.note,
+      imageURL: formData.imageUrl,
+      phoneNumber: formData.phoneNumber,
+      email: formData.email,
+      timekeepingShiftIds: formData.timekeepingShiftIds,
+      passwordTimekeeping: formData.passwordTimekeeping,
+    };
+
+    // const response = await dispatchResolve(insert(submitData));
+    // if (response?.success) {
+    //   onClose();
+    // }
   };
   return (
     <form onSubmit={handleSubmit(handleActionForm)}>
       <FieldGroup className="p-0">
-        <div className="grid grid-cols-2 gap-4">
-          <Field>
-            <FieldLabel htmlFor="id">Id</FieldLabel>
-            <Input id="id" type="text" autoFocus placeholder="Enter" required {...register('id')} />
-            {errors.id?.message && <FieldError>{errors.id?.message}</FieldError>}
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="name">Tên</FieldLabel>
-            <Input id="name" type="text" placeholder="Enter" required {...register('name')} />
-            {errors.name?.message && <FieldError>{errors.name?.message}</FieldError>}
-          </Field>
+        <Field>
+          <Controller
+            control={control}
+            name="imageUrl"
+            render={({ field: { ref, value, onChange } }) => {
+              return (
+                <Avatar size="lg" className="border" ref={ref} onChange={(selected) => {}}>
+                  <AvatarImage src={value} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              );
+            }}
+          />
+        </Field>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <InputField
+            label={translate('id')}
+            autoFocus
+            className="col-span-1"
+            register={register('id')}
+            placeholder={translate('p_id')}
+            error={errors.id?.message}
+          />
+          <InputField
+            label={translate('name')}
+            className="col-span-1"
+            register={register('name')}
+            placeholder={translate('p_name')}
+            error={errors.name?.message}
+          />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <Field>
-            <FieldLabel htmlFor="phoneNumber">phoneNumber</FieldLabel>
-            <Input id="phoneNumber" type="text" placeholder="Enter" {...register('phoneNumber')} />
-            {errors.phoneNumber?.message && <FieldError>{errors.phoneNumber?.message}</FieldError>}
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input id="email" type="text" placeholder="Enter" {...register('email')} />
-            {errors.email?.message && <FieldError>{errors.email?.message}</FieldError>}
-          </Field>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <InputField
+            label={translate('phoneNumber')}
+            register={register('phoneNumber')}
+            placeholder={translate('p_phoneNumber')}
+            error={errors.phoneNumber?.message}
+          />
+          <InputField
+            label={translate('email')}
+            register={register('email')}
+            placeholder={translate('p_email')}
+            error={errors.email?.message}
+          />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <Field>
-            <FieldLabel htmlFor="passwordTimekeeping">passwordTimekeeping</FieldLabel>
-            <Input id="passwordTimekeeping" type="text" placeholder="Enter" {...register('passwordTimekeeping')} />
-            {errors.passwordTimekeeping?.message && <FieldError>{errors.passwordTimekeeping?.message}</FieldError>}
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="note">note</FieldLabel>
-            <Input id="note" type="text" placeholder="Enter" {...register('note')} />
-            {errors.note?.message && <FieldError>{errors.note?.message}</FieldError>}
-          </Field>
+        <Controller
+          control={control}
+          name="timekeepingShiftIds"
+          render={({ field: { ref, value, onChange } }) => {
+            return (
+              <MultipleCombobox
+                ref={ref}
+                value={value}
+                items={shiftList.map((x) => ({ label: x.name, key: x.id }))}
+                modal={true} // Thêm prop này khi dùng trong dialog
+                onChange={(selected) => {
+                  const val = selected?.map((x: { label: string; key: string }) => x.key);
+                  onChange(val);
+                }}
+              />
+            );
+          }}
+        />
+
+        <ComboboxPopup />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <InputField
+            label={translate('password')}
+            register={register('passwordTimekeeping')}
+            placeholder={translate('p_password')}
+            error={errors.passwordTimekeeping?.message}
+          />
+          <InputField
+            label={translate('note')}
+            register={register('note')}
+            placeholder={translate('p_note')}
+            error={errors.note?.message}
+          />
         </div>
         <Field>
           <Button type="submit" disabled={isSubmitting}>
@@ -90,8 +170,10 @@ const StaffForm = ({ data, onClose }: StaffFormProps) => {
                 className="lucide lucide-loader-circle-icon lucide-loader-circle">
                 <path d="M21 12a9 9 0 1 1-6.219-8.56" />
               </svg>
+            ) : data ? (
+              ' Cập nhật '
             ) : (
-              'Add'
+              ' Tạo '
             )}
           </Button>
         </Field>

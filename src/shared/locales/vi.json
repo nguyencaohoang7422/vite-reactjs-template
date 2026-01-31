@@ -15,5 +15,25 @@
     "account": "Tài khoản",
     "aiSearch": "Tìm kiếm AI",
     "aiWarning": "Cảnh báo AI"
+  },
+  "timekeeping": {
+    "staff": {
+      "add": "Thêm",
+      "addStaff": "Thêm nhân viên",
+      "getExcelSample": "Lấy tệp excel mẫu",
+      "id": "Mã nhân viên",
+      "p_id": "Nhập mã nhân viên",
+      "name": "Tên nhân viên",
+      "p_name": "Nhập tên nhân viên",
+      "avatar": "Ảnh đại diện",
+      "phoneNumber": "Số điện thoại",
+      "p_phoneNumber": "Nhập số điện thoại",
+      "email": "Email",
+      "p_email": "Nhập email",
+      "password": "Mật khẩu chấm công",
+      "p_password": "Nhập mật khẩu chấm công",
+      "note": "Ghi chú",
+      "p_note": "Nhập ghi chú"
+    }
   }
 }

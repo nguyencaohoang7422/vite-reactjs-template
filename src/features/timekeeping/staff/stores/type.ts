@@ -5,12 +5,16 @@ export type State = {
   limit: number;
   page: number;
   total: number;
+  shiftList: Shift[];
 };
-
 export type PaginationPayload = {
   limit: number;
   page: number;
   searchText: string;
+};
+export type Shift = {
+  id: string;
+  name: string;
 };
 export type Staff = {
   id: string;
@@ -23,4 +27,5 @@ export type Staff = {
   timekeepingShiftIds: string[];
   note: string;
   status: number;
+  phoneNumber: string;
 };

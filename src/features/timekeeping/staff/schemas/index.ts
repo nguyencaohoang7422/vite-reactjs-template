@@ -2,13 +2,14 @@ import * as yup from 'yup';
 
 export const staffFormSchema = yup
   .object({
-    id: yup.string().required('id là bắt buộc'),
-    name: yup.string().required('username là bắt buộc'),
-    email: yup.string().nullable().email('Mật khẩu phải có ít nhất 8 ký tự'),
+    id: yup.string().required('Mã nhân viên không được bỏ trống'),
+    name: yup.string().required('Tên nhân viên không được bỏ trống'),
+    email: yup.string().nullable().email('Email không đúng định dạng'),
     phoneNumber: yup.string(),
     note: yup.string(),
     passwordTimekeeping: yup.string(),
     imageUrl: yup.string(),
+    timekeepingShiftIds: yup.array(),
   })
   .required();
 

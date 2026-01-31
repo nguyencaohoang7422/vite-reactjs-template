@@ -7,7 +7,7 @@ import HomePage from '@/features/home/pages/page.tsx';
 import { AuthLayout } from '@/shared/components/layout/AuthLayout/AuthLayout';
 import PrivateLayout from '@/shared/components/layout/PrivateLayout';
 // Public Pages
-import LoginPage from '@/auth/pages/LoginPage.tsx';
+import LoginPage from '@/auth/pages/login-page';
 // Feature routes
 import features from '@/features';
 import ErrorPage from '@/shared/pages/error-page';

@@ -20,6 +20,7 @@ type DialogModalProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   clickOutSide?: boolean;
+  asChild?: boolean;
 };
 
 const DialogModal = ({
@@ -32,21 +33,22 @@ const DialogModal = ({
   actions,
   contentClassName,
   clickOutSide = false,
+  asChild = true,
 }: DialogModalProps) => {
   return (
-    <Dialog modal open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange} modal={true}>
+      <DialogTrigger asChild={asChild}>{trigger}</DialogTrigger>
       <DialogContent
         onPointerDownOutside={(event) => {
           if (!clickOutSide) {
             event.preventDefault();
           }
         }}
-        aria-describedby="dialog"
-        className={cn('text-foreground', contentClassName || 'sm:max-w-106.25')}>
+        className={cn('text-foreground', contentClassName || 'sm:max-w-106.25')}
+        {...(description ? { 'aria-describedby': 'dialog-description' } : {})}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          {description && <DialogDescription>{description}</DialogDescription>}
+          {description && <DialogDescription id="dialog-description">{description}</DialogDescription>}
         </DialogHeader>
         <div className="grid gap-4">{children}</div>
         {actions && <DialogFooter>{actions}</DialogFooter>}

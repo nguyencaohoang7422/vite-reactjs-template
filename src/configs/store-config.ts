@@ -1,6 +1,6 @@
 // store/store.ts
 import { getAppModule } from '@/app/store';
-import { getAuthModule } from '@/auth';
+import { getAuthModule } from '@/auth/stores/authModule';
 import { configureStore, Tuple } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
@@ -12,7 +12,6 @@ const logger = createLogger({
   collapsed: (_getState, _action, logEntry: any) => !logEntry.error,
 
   predicate: (_getState, action) => {
-    //
     if (!import.meta.env.DEV) return false;
     const ignoredActions = ['@@INIT'];
     return !ignoredActions.includes(action.type);

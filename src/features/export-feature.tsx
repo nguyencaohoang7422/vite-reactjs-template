@@ -16,6 +16,10 @@ const exportTimekeeping = {
       path: PATH_ROUTING.STAFF,
       element: <StaffModule />,
     },
+    {
+      path: PATH_ROUTING.STAFF,
+      element: <StaffModule />,
+    },
   ],
 };
 features.push(exportAccountManager, exportTimekeeping);

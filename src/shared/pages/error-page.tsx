@@ -15,8 +15,7 @@ const ErrorDisplay = ({ errorStack, render }: { errorStack: any; render: any }) 
             index % 2 === 0 ? 'bg-slate-100' : 'bg-white' // Dòng chẵn lẻ khác màu
           } ${
             line.includes('node_modules') ? '' : 'font-bold text-red-600' // Làm mờ các dòng thư viện
-          }`}
-        >
+          }`}>
           <span className="mr-3 text-slate-400 select-none">{index + 1}</span>
           {line}
         </div>
@@ -51,8 +50,7 @@ export default function ErrorPage() {
           render={() => (
             <button
               onClick={handleCopy}
-              className="sticky top-0 right-0 flex items-center gap-2 rounded-md border border-slate-600 bg-slate-800 px-3 py-1.5 text-sm font-medium text-slate-200 transition-all hover:bg-slate-700"
-            >
+              className="sticky top-0 right-0 flex items-center gap-2 rounded-md border border-slate-600 bg-slate-800 px-3 py-1.5 text-sm font-medium text-slate-200 transition-all hover:bg-slate-700">
               {copied ? (
                 <>
                   <CheckIcon size={16} className="text-green-400" />
@@ -73,14 +71,12 @@ export default function ErrorPage() {
       <div className="mt-8 flex gap-4">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 rounded-lg border px-4 py-2 transition-all hover:bg-white"
-        >
+          className="flex items-center gap-2 rounded-lg border px-4 py-2 transition-all hover:bg-white">
           <ArrowLeftIcon size={18} /> Quay lại
         </button>
         <button
           onClick={() => (globalThis.location.href = '/')}
-          className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
-        >
+          className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700">
           <HouseIcon size={18} /> Trang chủ
         </button>
       </div>

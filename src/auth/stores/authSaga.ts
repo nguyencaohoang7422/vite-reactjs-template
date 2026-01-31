@@ -1,14 +1,14 @@
 import { isRouteExist } from '@/app/router';
 import { navigate } from '@/app/services';
 import { checkAuth, clearAuth, loginFailure, loginRequest, loginSuccess, logout, setLoading } from '@/auth';
-import { PATH_ROUTING } from '@/shared';
+import { apiClient, PATH_ROUTING } from '@/shared';
+import endpoints from '@/shared/api/endpoints';
 import { getValue } from '@/shared/libs/cookie';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { redirect } from 'react-router-dom';
 import { type SagaIterator } from 'redux-saga';
 import { all, call, put, putResolve, takeLatest, takeLeading } from 'redux-saga/effects';
 import { toast } from 'sonner';
-import { loginApi, loginWithToken, logoutApi } from '../api/authApi';
 
 function getDeviceId() {
   const deviceId = localStorage.getItem('deviceId');
@@ -24,7 +24,7 @@ export function* checkAuthSaga(): SagaIterator {
   try {
     const token = getValue();
     if (token) {
-      const response = yield call(loginWithToken, { token });
+      const response = yield call(apiClient.post, endpoints.auth.login, { token });
       if (response.success) {
         yield putResolve(loginSuccess({ token: response.result.token, user: response.result, rememberMe: true }));
       } else {
@@ -49,7 +49,7 @@ export function* loginSaga(
   try {
     const deviceName = globalThis.navigator.userAgent;
     const deviceId = getDeviceId();
-    const response = yield call(loginApi, { username, password, deviceId, deviceName });
+    const response = yield call(apiClient.post, endpoints.auth.login, { username, password, deviceId, deviceName });
     if (response?.success) {
       yield putResolve(loginSuccess({ token: response.result.token, user: response.result, rememberMe: true }));
       if (isRouteExist(redirectTo)) {
@@ -73,7 +73,7 @@ export function* loginSaga(
 
 export function* logoutSaga(): any {
   try {
-    const response = yield call(logoutApi);
+    const response = yield call(apiClient.post, endpoints.auth.logout);
     if (response.success) {
       yield putResolve(clearAuth());
       redirect(PATH_ROUTING.LOGIN);

@@ -1,23 +1,16 @@
 import { type LoginFormData, loginSchema } from '@/auth/schemas/loginSchema.ts';
 import { loginRequest } from '@/auth/stores/authSlice';
+import InputField from '@/shared/components/form/registers/InputField';
+import PasswordInputField from '@/shared/components/form/registers/PasswordInputField';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-} from '@/shared/components/ui/field';
-import { Input } from '@/shared/components/ui/input';
+import { Field, FieldDescription, FieldGroup, FieldSeparator } from '@/shared/components/ui/field';
 import { cn } from '@/shared/libs/utils';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import PasswordInputField from '../../form/PasswordInputField';
 
 export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
   const dispatch = useDispatch();
@@ -28,7 +21,7 @@ export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
-    mode: 'onBlur',
+    mode: 'onTouched',
     defaultValues: {
       username: '',
       password: '',
@@ -48,23 +41,21 @@ export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-balance text-muted-foreground">Login to your Vcloud account</p>
+                <p className="text-balance text-muted-foreground">Login to your account</p>
               </div>
-              <Field>
-                <FieldLabel htmlFor="username">Tài khoản</FieldLabel>
-                <Input
-                  autoComplete="username"
-                  id="username"
-                  type="text"
-                  autoFocus
-                  placeholder="Enter your username"
-                  required
-                  className=""
-                  {...register('username')}
-                />
-                {errors.username?.message && <FieldError>{errors.username?.message}</FieldError>}
-              </Field>
-              <PasswordInputField register={register('password')} error={errors.password?.message} />
+              <InputField
+                label={'Tài khoản'}
+                placeholder={'Nhập tài khoản'}
+                register={register('username')}
+                error={errors.username?.message}
+                required
+                autoFocus
+              />
+              <PasswordInputField
+                register={register('password')}
+                error={errors.password?.message}
+                placeholder={'Nhập mật khẩu'}
+              />
               <Field>
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? (
@@ -132,9 +123,7 @@ export function LoginForm({ className, ...props }: ComponentProps<'div'>) {
           </div>
         </CardContent>
       </Card>
-      <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-      </FieldDescription>
+      <FieldDescription className="px-6 text-center">© Design by VCV</FieldDescription>
     </div>
   );
 }

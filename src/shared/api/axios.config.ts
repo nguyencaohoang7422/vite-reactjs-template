@@ -1,11 +1,11 @@
 import { logout } from '@/auth/stores/authSlice';
 import { store } from '@/configs';
-import { cookieName } from '@/shared';
+import { apiBaseUrl, cookieName } from '@/shared/constants/config';
 import axios from 'axios';
 import { getValue } from '../libs';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: apiBaseUrl,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',

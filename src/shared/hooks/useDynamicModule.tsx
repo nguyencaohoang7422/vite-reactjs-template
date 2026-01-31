@@ -43,10 +43,11 @@ export function useDynamicModule(modules: IModule<any>[]) {
  * export default withDynamicModule([getModule()])(MyComponent);
  * ```
  */
-export function withDynamicModule(modules: IModule<any>[]) {
+export function withDynamicModule(modules: IModule<any>[] | IModule) {
+  const arrayModules = Array.isArray(modules) ? modules : [modules];
   return function <P extends object>(WrappedComponent: ComponentType<P>) {
     return function DynamicModuleWrapper(props: P) {
-      useDynamicModule(modules);
+      useDynamicModule(arrayModules);
       return <WrappedComponent {...props} />;
     };
   };

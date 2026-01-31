@@ -1,2 +1,2 @@
-export * from './FormInput';
-export * from './PasswordInputField';
+export * from './controls';
+export * from './registers';

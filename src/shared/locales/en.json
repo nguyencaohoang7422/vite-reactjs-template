@@ -1,4 +1,11 @@
 {
   "global": {},
-  "home": {}
+  "home": {},
+  "timekeeping": {
+    "staff": {
+      "id": "Staff ID",
+      "name": "Staff name",
+      "avatar": "Avatar"
+    }
+  }
 }
