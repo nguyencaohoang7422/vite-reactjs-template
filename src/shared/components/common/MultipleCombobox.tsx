@@ -55,17 +55,24 @@ export const MultipleCombobox = React.forwardRef(function MultipleCombobox<K = s
     ...restProps
   } = props;
   const anchor = React.useRef<HTMLDivElement | null>(null);
-  // Map items to primitive for Combobox, but keep full object for display and onChange
+
+  // Memoize itemMap with deep comparison of items keys
   const itemMap = React.useMemo(() => {
     const map = new Map<string, ComboboxItemType<K>>();
     items.forEach((item) => map.set(String(item.key), item));
     return map;
   }, [items]);
 
+  // Memoize items keys array
+  const itemKeys = React.useMemo(() => items.map((item) => String(item.key)), [items]);
+
   // Convert value/defaultValue to array of keys for Combobox
   const valueKeys = React.useMemo(() => {
     if (multiple) {
-      if (Array.isArray(value)) return value.map((v) => String(v.key));
+      if (Array.isArray(value)) {
+        const keys = value.map((v) => String(v.key));
+        return keys;
+      }
       return [];
     } else {
       return value ? String((value as ComboboxItemType<K>).key) : undefined;
@@ -74,7 +81,9 @@ export const MultipleCombobox = React.forwardRef(function MultipleCombobox<K = s
 
   const defaultValueKeys = React.useMemo(() => {
     if (multiple) {
-      if (Array.isArray(defaultValue)) return defaultValue.map((v) => String(v.key));
+      if (Array.isArray(defaultValue)) {
+        return defaultValue.map((v) => String(v.key));
+      }
       return [];
     } else {
       return defaultValue ? String((defaultValue as ComboboxItemType<K>).key) : undefined;
@@ -90,35 +99,32 @@ export const MultipleCombobox = React.forwardRef(function MultipleCombobox<K = s
   // Handle value change from Combobox
   const handleValueChange = React.useCallback(
     (keys: string | string[] | null) => {
+      if (!onChange) return;
       if (keys == null) {
-        if (onChange) onChange(multiple ? [] : null);
+        onChange(multiple ? [] : null);
         return;
       }
-
       // Map keys back to full objects
       if (multiple) {
         const arr = Array.isArray(keys) ? keys : [keys];
         const selected = arr.map((k) => itemMap.get(k)).filter(Boolean) as ComboboxItemType<K>[];
-        onChange?.(selected);
-      } else {
-        const selected = itemMap.get(keys as string) || null;
-        onChange?.(selected);
-      }
+        onChange(selected);
 
-      // In multiple mode, keep dropdown open after selection
-      if (multiple) {
+        // In multiple mode, keep dropdown open after selection
         keepOpenRef.current = true;
         setTimeout(() => {
           keepOpenRef.current = false;
         }, 0);
       } else {
+        const selected = itemMap.get(keys as string) || null;
+        onChange(selected);
+
         // In single mode, close dropdown
         setOpen(false);
       }
     },
     [multiple, onChange, itemMap],
   );
-
   // Handle open change
   const handleOpenChange = React.useCallback((newOpen: boolean) => {
     // Don't close if we just selected an item in multiple mode
@@ -127,7 +133,6 @@ export const MultipleCombobox = React.forwardRef(function MultipleCombobox<K = s
     }
     setOpen(newOpen);
   }, []);
-
   // Render trigger
   const renderTrigger = () => {
     if (triggerRender) return triggerRender;
@@ -135,12 +140,11 @@ export const MultipleCombobox = React.forwardRef(function MultipleCombobox<K = s
       return (
         <ComboboxChips
           ref={anchor}
-          className={
-            'pointer-events-auto w-full max-w-xs flex-nowrap overflow-hidden whitespace-nowrap ' +
-            'scrollbar-hide ' +
-            'custom-multi-combo-chips ' +
-            className
-          }>
+          className={cn(
+            'pointer-events-auto w-full max-w-xs flex-nowrap overflow-hidden whitespace-nowrap ' + 'scrollbar-hide',
+            'custom-multi-combo-chips',
+            className,
+          )}>
           <ComboboxValue>
             {(keys: string[]) => {
               const maxChips = 2;
@@ -166,11 +170,11 @@ export const MultipleCombobox = React.forwardRef(function MultipleCombobox<K = s
       return (
         <button
           type="button"
-          className={
-            'flex w-full max-w-xs items-center justify-between rounded border px-3 py-2 font-normal ' +
-            'bg-background text-foreground ' +
-            className
-          }
+          className={cn(
+            'flex w-full max-w-xs items-center justify-between rounded border px-3 py-2 font-normal',
+            'bg-background text-foreground',
+            className,
+          )}
           onClick={() => setOpen((o) => !o)}
           ref={anchor as any}>
           <span>{selected ? selected.label : placeholder}</span>
@@ -184,7 +188,7 @@ export const MultipleCombobox = React.forwardRef(function MultipleCombobox<K = s
     <Combobox
       multiple={multiple}
       autoHighlight
-      items={items.map((item) => String(item.key))}
+      items={itemKeys}
       value={valueKeys}
       defaultValue={defaultValueKeys}
       onValueChange={handleValueChange}
